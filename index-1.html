@@ -43,11 +43,214 @@
             
     
         <div class="postbox">
+        <h1><a href="posts/como-volver-a-compartir-desde.html">Cómo volver a compartir desde Google Reader</a>
+        <small>  
+             <span class="timeago" title="2012-01-11 21:37:21">2012-01-11 21:37:21</span>
+        </small></h1>
+        <div class="important">
+<p class="first admonition-title">Important</p>
+<p class="last">El pipe tiene un problema con las fechas y quedó deactualizado
+cuando cambió en el html de G+. En su defecto hice este pequeño
+<a class="reference external" href="https://gist.github.com/2886591">scrapper</a> que es lo que uso
+en <a class="reference external" href="http://www.textospretextos.com.ar">Textos y Pretextos</a></p>
+</div>
+<p>Desde hace muchísimo tengo en <a class="reference external" href="http://www.textospretextos.com.ar">mi otro
+blog</a> una sección que se llama <em>"De
+por ahí, cosas que me parecieron interesantes"</em>. Es un feed de links a
+contenidos de toda índole (política, literatura, cine, fotografía,
+deportes, programación: intereses anchos) con un brevisimo extracto como
+descripción que fui alimentando de diversas formas a lo largo del
+tiempo: usé
+<a class="reference external" href="http://delicious.com/nqnwebs,%20use%20%20%5Besto%20%20-%3Ehttp://sourceforge.net/projects/linkwalla/">delicious</a>,
+usé mi
+<a class="reference external" href="http://twitter.com/nqnwebs).%20Pero%20cuando%20%5BGoogle%20Reader-%3Ehttp://reader.google.com">twitter</a>
+incorporó la opción de "Compartir" se convirtió en la manera por
+defecto: si algo me gustaba, un click en compartir y listo. Eso permitia
+que otros usuarios de Reader que me "seguian" pudieran ver mis posts
+compartidos pero a la vez generaba un feed rss que alimentaba la sección
+de mi blog.</p>
+<p>Con la aparición de Google+ aquella simple y muy usada funcionalidad se
+vió desplazada por el botón "+1" y por un "compartir" engañoso que sólo
+permite compartir en Google+</p>
+<p>Para colmo, cuando uno hace "+1" en algun contenido (dentro de Google
+Reader o en cualquier lado donde esté el botón) se lista en una <a class="reference external" href="https://plus.google.com/102449284377784435533/plusones/p/pub">página
+publica</a>
+pero que <strong>no tiene feed RSS</strong>! . Larry Page,
+(<a class="reference external" href="https://twitter.com/#!/nqnwebs/status/154772127139102720">doblemente</a>)
+te odio.</p>
+<div class="section" id="frustracion-colectiva">
+<h2>Frustración colectiva</h2>
+<p>La bronca por los cambios en Reader no es sólo mia, sino que generó una
+<a class="reference external" href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dE16SFVla3JFZ1lwTkxGRWN2SkZtb2c6MA#gid=0">petición</a>
+firmada por más de
+<a class="reference external" href="http://www.bdkeller.com/2011/10/save-google-reader/">13000</a> usuarios
+que manifiestan que "algunos ven estos cambios como un intento errado
+para forzarnos a usar Google Plus, pero nosotros amamos la utilidad,
+simplicidad y funcionalidades sociales limitadas que ofrece Google
+Reader".</p>
+<p>Mientras tanto, muchos
+(<a class="reference external" href="http://www.theatlanticwire.com/technology/2011/10/how-survive-switch-google-reader-google/44069/">1</a>,
+<a class="reference external" href="https://github.com/jtwebman/GooglePlusToRSSFeed">2</a>,
+<a class="reference external" href="http://plus-one-feed-generator.appspot.com/">3</a>) intentan parchar el
+atropello.</p>
+</div>
+<div class="section" id="mi-solucion">
+<h2>Mi solución</h2>
+<p>"¿Así que no me dejás compartir donde yo quiera, el algoritmo de tu
+madre!?" vociferé, y no sin premeditación agarré <a class="reference external" href="posts/blog/article/yahoo-pipes-como-por-un-tubo">Yahoo!
+Pipes</a> (una genialidad, hay
+que decirlo) para scrappearlos a puro golpe de mouse y sin salir del
+navegador. El resultado fue <a class="reference external" href="http://pipes.yahoo.com/pipes/pipe.info?_id=770fc166fd07a0f6e67fe63f513b05dc">este
+pipe</a>
+del que se puede obtener, por ejemplo, un <a class="reference external" href="http://pipes.yahoo.com/pipes/pipe.run?_id=770fc166fd07a0f6e67fe63f513b05dc&amp;_render=rss&amp;google_plus_id=102449284377784435533">feed RSS 2.0 de mis
++1s</a>
+. Podés obtener el feed de otros usuarios así:</p>
+<p><tt class="docutils literal"><span class="pre">http://pipes.yahoo.com/pipes/pipe.run?_id=770fc166fd07a0f6e67fe63f513b05dc&amp;_render=rss&amp;google_plus_id=[GOOGLE_PLUS_ID]</span></tt>
+donde <tt class="docutils literal">[GOOGLE_PLUS_ID]</tt> es el numero de identificación del usuario en
+cuestión.</p>
+<div class="figure align-center">
+<img alt="http://nqnwebs.com/local/cache-vignettes/L510xH139/google-plus-user-profile-id-f8dfc.png" src="http://nqnwebs.com/local/cache-vignettes/L510xH139/google-plus-user-profile-id-f8dfc.png"></div>
+</div>
+        <p>
+        
+            <a href="posts/como-volver-a-compartir-desde.html#disqus_thread">Comments</a>
+        
+        </p></div>
+    
+        <div class="postbox">
+        <h1><a href="posts/lo-que-hace-un-geek-cuando-ama.html">Lo que hace un geek cuando ama</a>
+        <small>  
+             <span class="timeago" title="2011-11-11 20:43:47">2011-11-11 20:43:47</span>
+        </small></h1>
+        <p>Mi computadora de escritorio, la primera que compré trabajando como
+desarrollador de software, es del 2005. La "morocha", una AMD64 con
+placa madre <a class="reference external" href="http://www.asus.com/Motherboards/AMD_Socket_754/K8N">Asus
+K8N</a> que se la
+sigue bancando.</p>
+<img alt="/images/1110133923_20ebd-30987.jpg" class="align-center" src="images/1110133923_20ebd-30987.jpg"><p>Aquel año me enamoré, no por primera vez, pero sí mucho. Aunque resultó
+una <a class="reference external" href="http://www.textosypretextos.com.ar/Hurgando-en-el-Gmail">historia
+complicada</a>,
+es lindo recordar cuanto uno es capaz de amar y ser amado. Y reirse,
+también, de cuán estúpido se puede ser en ese estado.</p>
+<div class="section" id="el-tatuaje-digital">
+<h2>El tatuaje digital</h2>
+<p>Hay <a class="reference external" href="http://www.ascodevida.com/amor/42152">gestos de amor</a> que no
+miden consecuencias y son dificiles de comprender. Yo, por ejemplo,
+decidí "hackear" la BIOS de mi maquina recién comprada y poner una foto
+de aquella mujer amada como pantalla de splash, esa que se muestra apenas
+se enciende la computadora, mucho antes de cargar cualquier sistema
+operativo.</p>
+<p>Si bien por entonces ya usaba linux, para hacer esto usé una aplicación
+oficial de Asus que venía en el Windows instalado, que pronto, a falta
+de espacio en disco y necesidad, desapareció.</p>
+<p>La historia siguió, por supuesto. Aquel amor terminó pero esa imagen
+quedó allí, tatuada. Mientras vivía solo mucho no me importaba, quizas
+porque reiniciaba muy poco la computadora, quizas porque uno naturaliza
+una cicatriz hasta volverse indiferente.</p>
+<p>Cuando un amor nuevo llegó y más tarde la convivencia, encender la
+Morocha cada mañana empezó a hacerse un momento gracioso pero incómodo.
+Para colmo, aun estando dispuesto a reinstalar Windows con este único
+propósito, aquel programita de Asus se me hizo inconseguible .</p>
+<p>Hasta que hoy, seis años despues, me animé a la cirugía.</p>
+</div>
+<div class="section" id="si-no-podes-cambiar-el-tatuaje-cambia-de-piel">
+<h2>Si no podés cambiar el tatuaje, cambiá de piel</h2>
+<p>Encontré un <a class="reference external" href="http://dlcdnet.asus.com/pub/ASUS/mb/sock754/K8N/K8n1011.zip">firmware
+actualizado</a>
+para la BIOS. Aunque no hubiera problemas con la que tenía, actualizarlo
+traería el splash original de Asus.</p>
+<p>El problema, felación habitual a Microsoft de las fabricantes de
+hardware, es que <a class="reference external" href="http://dlcdnet.asus.com/pub/ASUS/mb/flash/AFUDOS211.zip">la utilidad para actualizar
+BIOS</a> es para
+D.O.S.. WTF!</p>
+<p>La
+<a class="reference external" href="http://www.linuxinsight.com/how-to-flash-motherboard-bios-from-linux-no-dos-windows-no-floppy-drive.html">solución</a>
+es usar <a class="reference external" href="http://www.freedos.org/">FreeDOS</a></p>
+<pre class="code bash literal-block">
+<span class="c"># obtener una imagen booteable de freeDOS y montarla en un directorio
+</span>wget http://www.fdos.org/bootdisks/autogen/FDOEM.144.gz
+gunzip FDOEM.144.gz
+mkdir /tmp/floppy
+mount -t vfat -o loop FDOEM.144 /tmp/floppy
+
+<span class="c"># obtener la herramienta para actualizar el bios y la imagen, y moverlos
+</span>wget http://dlcdnet.asus.com/pub/ASUS/mb/flash/AFUDOS211.zip
+unzip AFUDOS211.zip
+mv AFUDOS.exe /tmp/floppy
+wget http://dlcdnet.asus.com/pub/ASUS/mb/sock754/K8N/K8n1011.zip
+unzip K8n1011.zip
+mv 1011.rom /tmp/floppy
+
+<span class="c"># desmontar
+</span>umount /tmp/floppy
+
+<span class="c"># crear una ISO y grabar a un disco virgen
+# (tambien se podría grabar a un pendrive)
+</span>mkisofs -o bootcd.iso -b FDOEM.144 FDOEM.144
+cdrecord -v bootcd.iso
+</pre>
+<p>Reinciar, bootear el CD de FreeDOS y ejecutar:</p>
+<pre class="literal-block">
+afudos /i1011.rom
+</pre>
+</div>
+        <p>
+        
+            <a href="posts/lo-que-hace-un-geek-cuando-ama.html#disqus_thread">Comments</a>
+        
+        </p></div>
+    
+        <div class="postbox">
+        <h1><a href="posts/cuevanalinks-ahora-para-seres.html">Cuevanalinks, ahora para seres humanos</a>
+        <small>  
+             <span class="timeago" title="2011-08-03 08:51:21">2011-08-03 08:51:21</span>
+        </small></h1>
+        <div class="important">
+<p class="first admonition-title">Important</p>
+<p class="last">Cuevanlinks está desmantenido y con los cambios en cuevana.tv ya no
+funciona. No es complicado actualizarlo, pero yo no tengo tiempo.
+¿Querés revivir el proyecto? <a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalinks/fork">Forkealo</a>!</p>
+</div>
+<p>Un colega al que no conozco personalmente, <a class="reference external" href="http://mguillech.blogspot.com/">Martín
+Chikilian</a>, se ofreció a desarrollar
+una interfaz gráfica para
+<a class="reference external" href="posts/blog/article/la-sanguijuela-de-cuevana">Cuevanalinks</a>.</p>
+<p>Luego de algunos dias y teniendo una paciencia descomunal para soportar
+siempre nuevos requerimientos de mi parte, obtuvo una versión de
+Cuevanalinks-GUI, basado en <a class="reference external" href="http://es.wikipedia.org/wiki/PyQt">PyQt</a></p>
+<div class="figure align-center">
+<img alt="http://nqnwebs.com/local/cache-vignettes/L510xH411/2011-08-03-115827_693x558_scrot-0e6d2.png" src="http://nqnwebs.com/local/cache-vignettes/L510xH411/2011-08-03-115827_693x558_scrot-0e6d2.png"></div>
+<p>Todavía está en desarrollo (hay algunos bugcitos y decisiones de diseño
+que no resolvemos del todo) pero ya ofrece ciertas ventajas sobre la
+versión para línea de comandos:</p>
+<ul class="simple"><li>Permite elegir qué se descarga cuando se hace una búsqueda de
+películas</li>
+<li>Te deja armar una cola de descargas de muchas cosas distintas
+haciendo muchas busquedas</li>
+<li>Y, lo más importante, lo puede instalar y usar un ser humano
+normal. :D</li>
+</ul><p>Para Windows, hay un instalador de la versión 0.5dev (el dev denota que
+está en desarrollo, se entiende) que se puede descargar desde acá:</p>
+<div class="important">
+<p class="first admonition-title">Important</p>
+<p><a class="reference external" href="downloads/cuevanalinks-0.5dev-installer.exe">cuevanalinks-0.5dev-installer.exe</a></p>
+<p class="last">para Windows XP o superior</p>
+</div>
+<p>Para los linuxeros, Martín puso <a class="reference external" href="http://mguillech.blogspot.com/2011/08/cuevanalinks-gui-available.html">algunas
+instrucciones</a>
+para hacerlo andar desde los fuentes.</p>
+        <p>
+        
+            <a href="posts/cuevanalinks-ahora-para-seres.html#disqus_thread">Comments</a>
+        
+        </p></div>
+    
+        <div class="postbox">
         <h1><a href="posts/disqus-para-spip.html">Disqus para SPIP</a>
         <small>  
              <span class="timeago" title="2011-07-07 01:45:06">2011-07-07 01:45:06</span>
         </small></h1>
-        <div><img alt="/images/disqus-newlod23a-8b781.gif" class="align-right" src="images/disqus-newlod23a-8b781.gif"><p>Hace tiempo me interesa el servicio
+        <img alt="/images/disqus-newlod23a-8b781.gif" class="align-right" src="images/disqus-newlod23a-8b781.gif"><p>Hace tiempo me interesa el servicio
 <a class="reference external" href="http://www.disqus.com">disqus.com</a> que provee una plataforma de
 comentarios muy poderosa y fácil de usar.</p>
 <p>Comencé un <a class="reference external" href="http://zone.spip.org/trac/spip-zone/browser/_plugins_/disqus">pequeño
@@ -65,7 +268,7 @@ shortname"</em> (la identificación unica que asignamos al sitio donde
 usaremos Diqus).</p>
 <p>Para generar el XML con la exportación de comentarios preexistentes,
 basta acceder a <tt class="docutils literal"><span class="pre">/?page=export_comments_to_disqus</span></tt> y luego importar
-ese archivo desde el panel de Disqus (Tools -&gt; Import/Export )</p></div>
+ese archivo desde el panel de Disqus (Tools -&gt; Import/Export )</p>
         <p>
         
             <a href="posts/disqus-para-spip.html#disqus_thread">Comments</a>
@@ -77,7 +280,7 @@ ese archivo desde el panel de Disqus (Tools -&gt; Import/Export )</p></div>
         <small>  
              <span class="timeago" title="2011-07-01 11:00:00">2011-07-01 11:00:00</span>
         </small></h1>
-        <div><img alt="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg" class="align-left" src="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg"><p><a class="reference external" href="http://www.python.org.ar">Python Argentina</a> se complace en informar que está
+        <img alt="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg" class="align-left" src="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg"><p><a class="reference external" href="http://www.python.org.ar">Python Argentina</a> se complace en informar que está
 disponible la <a class="reference external" href="http://cdpedia.python.org.ar/">versión 0.7 de CDPedia</a>
 , un proyecto de la comunidad para disponer de los contenidos de
 <a class="reference external" href="http://es.wikipedia.org">Wikipedia en español</a> sin acceso a internet,
@@ -102,7 +305,7 @@ por este logro de la comunidad. En especial, a
 <a class="reference external" href="http://twitter.com/#!/dmascialino">Diego</a>,
 <a class="reference external" href="http://twitter.com/#!/spiccinini">SAn</a>,
 <a class="reference external" href="http://www.taniquetil.com.ar/plog/">Facu</a> y
-<a class="reference external" href="http://protocultura.net/">Alecu</a> que son los principales</p></div>
+<a class="reference external" href="http://protocultura.net/">Alecu</a> que son los principales</p>
         <p>
         
             <a href="posts/cdpedia-0-7-disponible.html#disqus_thread">Comments</a>
@@ -114,11 +317,10 @@ por este logro de la comunidad. En especial, a
         <small>  
              <span class="timeago" title="2011-06-10 15:18:13">2011-06-10 15:18:13</span>
         </small></h1>
-        <div><p>De nuevo soy distribuidor de la <a class="reference external" href="http://orsai.es">Orsai</a> en la ciudad
+        <p>De nuevo soy distribuidor de la <a class="reference external" href="http://orsai.es">Orsai</a> en la ciudad
 de Córdoba. Si estás interesado date una vuelta por <a class="reference external" href="http://textosypretextos.com.ar/Reserva-Orsai-3-en-Cordoba">esta
 página</a></p>
-<img alt="http://nqnwebs.com/local/cache-vignettes/L450xH267/orsai3-145d6.jpg" class="align-center" src="http://nqnwebs.com/local/cache-vignettes/L450xH267/orsai3-145d6.jpg"></div>
-        <p>
+<img alt="http://nqnwebs.com/local/cache-vignettes/L450xH267/orsai3-145d6.jpg" class="align-center" src="http://nqnwebs.com/local/cache-vignettes/L450xH267/orsai3-145d6.jpg"><p>
         
             <a href="posts/revista-orsai-no-3-en-cordoba.html#disqus_thread">Comments</a>
         
@@ -129,7 +331,7 @@ página</a></p>
         <small>  
              <span class="timeago" title="2011-06-06 12:27:44">2011-06-06 12:27:44</span>
         </small></h1>
-        <div><p>[Sigo <a class="reference external" href="posts/me-recibi-el-mes-pasado.html">publicando cosas</a> con
+        <p>[Sigo <a class="reference external" href="posts/me-recibi-el-mes-pasado.html">publicando cosas</a> con
 delay de meses]</p>
 <p>El sábado 30 de mayo se realizó el <a class="reference external" href="http://www.pyday.com.ar/cordoba2011">PyDay Córdoba
 2011</a> con la participación de más
@@ -152,7 +354,7 @@ completo como trabajo final de la asignatura Arquitectura de Computadoras.
 Pueden leer un poco más sobre el trabajo en <a class="reference external" href="https://github.com/mgaitan/pymips/raw/pipeline/docs/informe.pdf">el
 informe</a>
 que presenté.</p>
-</div></div>
+</div>
         <p>
         
             <a href="posts/charla-myhdl-de-python-al-siliicio.html#disqus_thread">Comments</a>
@@ -164,12 +366,12 @@ que presenté.</p>
         <small>  
              <span class="timeago" title="2011-06-03 23:32:50">2011-06-03 23:32:50</span>
         </small></h1>
-        <div><p>Oh, cuantos planes elucubrados para cuando ya no tuviera un exámen
+        <p>Oh, cuantos planes elucubrados para cuando ya no tuviera un exámen
 cercano para obstaculizar la felicidad. Y resulta que ahora, que ya no
 tengo, tampoco encuentro el tiempo de empezar a darle forma de realidad
 a esos planes.</p>
 <p>Esta es la información: el 12 de mayo pasado me recibí de Ingeniero en
-Computación.</p></div>
+Computación.</p>
         <p>
         
             <a href="posts/me-recibi-el-mes-pasado.html#disqus_thread">Comments</a>
@@ -181,7 +383,7 @@ Computación.</p></div>
         <small>  
              <span class="timeago" title="2011-04-27 16:22:47">2011-04-27 16:22:47</span>
         </small></h1>
-        <div><p><img alt="image0" src="images/messi_guardib9bf-5b102.jpg">
+        <p><img alt="image0" src="images/messi_guardib9bf-5b102.jpg">
 El <a class="reference external" href="http://www.python.org/dev/peps/pep-0020/">Zen de Python</a> es
 también el Zen del Barça, el de Pep Guardiola. La "Pep" 20
 [<a class="reference external" href="blog/article/pep-20-el-zen-del-barca#nb1">1</a>]:</p>
@@ -208,7 +410,7 @@ Aunque nunca es a menudo mejor que ya mismo.
 Si la implementación es difícil de explicar, es una mala idea.
 Si la implementación es fácil de explicar, puede que sea una buena
 idea.
-Los espacios son una gran idea ¡Hagamos más de esas cosas!</blockquote></div>
+Los espacios son una gran idea ¡Hagamos más de esas cosas!</blockquote>
         <p>
         
             <a href="posts/pep-20-el-zen-del-barca.html#disqus_thread">Comments</a>
@@ -220,7 +422,7 @@ Los espacios son una gran idea ¡Hagamos más de esas cosas!</blockquote></div>
         <small>  
              <span class="timeago" title="2011-04-10 19:16:38">2011-04-10 19:16:38</span>
         </small></h1>
-        <div><p>Sabido es, aunque muchas veces se ignora, que un software sin
+        <p>Sabido es, aunque muchas veces se ignora, que un software sin
 documentación está incompleto
 [<a class="reference external" href="blog/article/compartiendo-documentacion-de#nb1">1</a>].</p>
 <p>Si bien el manifiesto ágil
@@ -378,245 +580,10 @@ github</a>
 de Luca Sbardella.
 <img alt="image1" src="posts/local/cache-vignettes/L8xH11/puce-32883.gif"><a class="reference external" href="http://dinoboff.github.com/github-tools/overview.html#documentation-hosting">Usando
 github-tools</a>.</p>
-</div></div>
+</div>
         <p>
         
             <a href="posts/compartiendo-documentacion-de.html#disqus_thread">Comments</a>
-        
-        </p></div>
-    
-        <div class="postbox">
-        <h1><a href="posts/la-sanguijuela-de-cuevana.html">La sanguijuela de cuevana</a>
-        <small>  
-             <span class="timeago" title="2011-04-09 14:22:27">2011-04-09 14:22:27</span>
-        </small></h1>
-        <div><blockquote>
-<strong>UPDATE</strong> Hay una nueva versión con interfaz gráfica
-<a class="reference external" href="posts/blog/article/cuevanalinks-ahora-para-seres">acá</a></blockquote>
-<p>Parece que se me hizo hobby <a class="reference external" href="posts/blog/article/yendo-a-las-fuentes-de-cuevana-tv">chupar links de
-cuevana.tv</a> y el
-experimento ahora tiene su versión pythonica:
-<a class="reference external" href="http://pypi.python.org/pypi/CuevanaLinks">Cuevanalinks</a> .</p>
-<p>Es un pequeño proyecto que permite "conseguir links" de contenidos
-ofrecidos en cuevana, sirviendo estos como fuentes a manejadores de
-descargas como <a class="reference external" href="http://www.tucaneando.com/">Tucan</a> o
-<a class="reference external" href="http://jdownloader.org/">JDownloader</a>.</p>
-<p>Más allá de los resultados, me ha tenido entretenido algunas horas y me
-permitió aprender (o al menos resolver) algunas cosas: cómo se usa
-mercurial (y en particular un merge conflictivo con Meld), cómo se
-escribe un setup.py, como se distribuye via PyPi, etc.</p>
-<p>También, por supuesto, me permitió usar dos utilidades que me gustan
-mucho: <a class="reference external" href="http://pyquery.org">PyQuery</a> y
-<a class="reference external" href="http://pypi.python.org/pypi/plac">plac</a>.</p>
-<p>La aplicación tiene dos módulos/componentes:</p>
-<ol class="arabic simple"><li>Una <a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalinks/src/943b329f3da5/cuevanalinks/cuevanaapi.py">biblioteca que intenta funcionar como
-API</a>
-de <a class="reference external" href="http://www.cuevana.tv">Cuevana</a> y es la encargada de
-<em>scrappear</em> la web en busca de la info interesante.</li>
-<li>Una <a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalinks/src/943b329f3da5/cuevanalinks/cuevanacli.py">interfaz de línea de
-comandos</a>
-que permite buscar links y bajar subtitulos de contenidos específicos</li>
-</ol><div class="figure align-center">
-<img alt="" src="posts/local/cache-vignettes/L510xH296/2011-04-09-173503_562x326_scrot-1fb6b.png"></div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">&lt;string&gt;</tt>, line 37)</p>
-Explicit markup ends without a blank line; unexpected unindent.</div>
-<div class="section" id="para-que-sirve">
-<h2>Para qué sirve</h2>
-<p>Por ejemplo, para bajar la temporada 4 completa de Mad Men, con
-subtitulos, se podría hacer esto:</p>
-<pre class="literal-block">
-$ cuevanalinks 'mad men' s04 -s &gt; madmen.txt &amp;&amp; tucan -d -i madmen.txt
-</pre>
-</div>
-<div class="section" id="instalacion">
-<h2>Instalación</h2>
-<p>Para instalarlo, basta con usar <a class="reference external" href="http://www.pip-installer.org">pip</a></p>
-<pre class="literal-block">
-$ sudo pip install cuevanalinks
-</pre>
-<p>O con
-<a class="reference external" href="http://packages.python.org/distribute/easy_install.html">easy_install</a>:</p>
-<pre class="literal-block">
-$ sudo easy_install cuevanalinks
-</pre>
-<p>O bien, bajar <a class="reference external" href="http://pypi.python.org/pypi/CuevanaLinks#downloads">el
-paquete</a> y
-ejecutar :</p>
-<pre class="literal-block">
-$ tar xvfz CuevanaLinks-0.1.tar.gz
-$ cd CuevanaLinks-0.1
-$ sudo python setup.py install
-</pre>
-</div>
-<div class="section" id="algunas-posibilidades-de-la-api">
-<h2>Algunas posibilidades de la API</h2>
-<p>El CLI por ahora sólo expone una parte pequeña de la API, pero hay
-varias posibilidades. Por ejemplo:</p>
-<pre class="literal-block">
-&gt;&gt;&gt; from cuevanalinks import cuevanaapi
-&gt;&gt;&gt; api = cuevanaapi.CuevanaAPI ()
-&gt;&gt;&gt; house = api.get_show ('house')
-&gt;&gt;&gt; house.plot
-u'El doctor Gregory House, especialista en el tratamiento de enfermedades infecciosas, trabaja en un hospital universitario de Princetown, donde dirige una unidad especial encargada de pacientes afectados por dolencias extrañas y en la que colabora con un selecto grupo de aventajados ayudantes.'
-&gt;&gt;&gt; house7x1 = house.get_episode (7, 1)
-&gt;&gt;&gt; house7x1.title
-'Now What?'
-&gt;&gt;&gt; house7x1.cast
-['Hugh Laurie',
- 'Lisa Edelstein',
- 'Omar Epps',
- 'Jesse Spencer',
- 'Jennifer Morrison',
- 'Robert Sean Leonard',
- 'Olivia Wilde',
- 'Peter Jacobson']
-&gt;&gt;&gt; house7x1.sources
-['http://www.megaupload.com/?d=DM58TA0J',
- 'http://www.filesonic.com/file/36841721/?',
- 'http://bitshare.com/?f=67z435xm',
- 'http://www.filefactory.com/file/caf85b9']
-&gt;&gt;&gt; house7x1.subs
-{'ES': 'http://www.cuevana.tv/download_sub?file=s/sub/7888_ES.srt'}
-</pre>
-</div>
-<div class="section" id="lo-que-falta">
-<h2>Lo que falta</h2>
-<p>Si bien es lo más prolijito que he hecho, todavía está lejos de ser un
-trabajo completo, tanto en funcionalidades como en
-<a class="reference external" href="http://en.wikipedia.org/wiki/Software_Quality_Assurance">SQA</a></p>
-<p>Un aspecto esencial es hacer test (perdón Nati Bidart ;-) ), para lo
-cual tengo que aprender a usar
-<a class="reference external" href="http://code.google.com/p/python-nose/">nose</a> y
-<a class="reference external" href="http://blog.ianbicking.org/minimock.html">minimock</a>.</p>
-<p>Respecto a funciones, algo importante es definir cómo resuelve el CLI el
-manejo de múltiples resultados para una búsqueda. Actualmente devuelve
-el resultado "más relevante" sin anoticiar al usuario de otras opciones.</p>
-<p>También falta documentación! Veremos la próxima.</p>
-</div>
-<div class="section" id="comentarios-sugerencias-bugs">
-<h2>Comentarios, sugerencias, bugs</h2>
-<p>Todo aporte (ideas, código, etc.) es bienvenido. Si encuentran
-problemas,
-<a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalinks/issues">reportenlos</a>.</p>
-<p>No estoy seguro cuánto puede durar esto funcionando, ya que depende de
-que el funcionamiento del sitio no cambie o yo tenga mucho tiempo y
-ganas de andar parchando detrás. Por eso, si hay más interesados y
-usuarios, seguramente podremos hacerlo durar más.</p>
-</div></div>
-        <p>
-        
-            <a href="posts/la-sanguijuela-de-cuevana.html#disqus_thread">Comments</a>
-        
-        </p></div>
-    
-        <div class="postbox">
-        <h1><a href="posts/veinteanero.html">Veinteañero</a>
-        <small>  
-             <span class="timeago" title="2011-04-08 08:47:13">2011-04-08 08:47:13</span>
-        </small></h1>
-        <div><p>Suse 7.0 fue la primera distro Linux que mi gloriosa Pentium II cobijó.
-Al tiempo usé Mandrake, después Debian y desde su primera versión (2004)
-Ubuntu.</p>
-<p>Un largo camino de aprendizaje... que alguna vez recorreré ;-)</p></div>
-        <p>
-        
-            <a href="posts/veinteanero.html#disqus_thread">Comments</a>
-        
-        </p></div>
-    
-        <div class="postbox">
-        <h1><a href="posts/la-academia-las-practicas-agiles-y.html">La academia, las prácticas ágiles y el UML</a>
-        <small>  
-             <span class="timeago" title="2011-04-06 06:21:23">2011-04-06 06:21:23</span>
-        </small></h1>
-        <div><p>La manera más fácil para aprobar una tesis de ingeniería es mentir.
-Llenar páginas y páginas, preferentemente con tablas y viñetas, de
-contenidos vacuos y tediosos que seguramente nadie, mucho menos los
-evaluadores, leerán. Sólo hay que prestar atención a que sean muchas
-páginas y lo más simétricas posibles.</p>
-<p>El ejemplo paradigmático de esto son las <a class="reference external" href="http://www.google.com/search?q=plantilla+caso+de+uso">especificaciones formales de
-casos de uso</a>,
-pasión de burócratas que tienen cabida donde no hace falta demostrar
-mucho.</p>
-<p>Pero también el UML, me atrevo a decir, en su mayor parte y nivel de
-detalle es secuaz de esta ignominia que pauperiza el nivel del software
-académico: en vez de saber programar y poder leer código, se presta
-atención a los dibujitos, poniendo el grito en el cielo si la flechita
-es negra en vez de blanca, como dice
-<a class="reference external" href="http://www.comp.lancs.ac.uk/computing/resources/IanS/">Sommerville</a>
-que debe ser.</p>
-<p>Como no me gusta mentir, la facilidad no me seduce de más (tampoco la
-dificultad) y estoy bastante conforme con <a class="reference external" href="http://code.google.com/p/gpec2010/">lo que
-hice</a> me animé a ser sensato en
-expresar cómo hice mi trabajo.</p>
-<p>No me encerré 6 meses a hacer dibujitos que resultarían perfectos,
-inescrutables y luego harían la programación trivial. Eso, al menos en
-mi experiencia, no existe (sospecho que ellos todos lo saben, lo que
-exacerba la hipocresía). Sí, en cambio, hice algunos dibujitos que me
-ayudaran a entender (y dar a entender) cómo iba la cosa, mientras iba
-programando y evaluando si estaba bien encaminado.</p>
-<p>Este espíritu es el que cobijan las <a class="reference external" href="http://agilemanifesto.org/iso/es/">prácticas
-ágiles</a>, que es el marco conceptual
-(metodológico) que adopté.</p>
-<p>La cuestión es que, para ganarle al <em>unknow how</em> de los hombres de
-corbata, hay que justificar con nombres que les suenen admirables. Hay
-que mencionar mucho IBM, Microsoft, C#, Intel. Esas son las voces que
-respetan, aunque sean pura
-<a class="reference external" href="http://es.wikipedia.org/wiki/Argumento_de_autoridad">falacia</a></p>
-<div class="figure align-center">
-<img alt="" src="posts/local/cache-vignettes/L510xH603/anti-bullying-charity-school-tie-small-59832-3938a.jpg"></div>
-<div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">&lt;string&gt;</tt>, line 45)</p>
-Explicit markup ends without a blank line; unexpected unindent.</div>
-<p>Yo justifiqué
-<a class="reference external" href="http://code.google.com/p/gpec2010/source/browse/trunk/docs/metodologia.rst?spec=svn232&amp;r=232#92">así</a>:</p>
-<blockquote>
-<p>Según afirma Terry Quatrani, evangelizadora de las metodologías
-ágiles de IBM, en <a class="reference external" href="http://agilescout.com/agile-modeling-and-uml/">The Truth About Agile
-Modeling</a> :</p>
-<blockquote>
-Aunque sigas un proceso ágil, estarás realizando cierto grado de
-modelado – sólo que no lo realizarás tanto como si utilizaras un
-proceso tradicional. La falta de formalidad en el modelado ágil
-no significa que no estás modelando, sino que te pones el foco
-en los beneficios de este sin las desventajas y confusiones de
-documentos extraños y burocráticos.</blockquote>
-<p>Por su parte, Robert Martin sostiene en <a class="reference external" href="http://stackoverflow.com/questions/61487/do-you-use-uml-in-agile-development-practices">*Agile Principles,
-Patterns, and Practices in
-C#*</a>
-que el modelado basado en UML en el desarrollo ágil es útil como
-instrumento de comunicación, pero su detalle no aporta valor
-significativo:</p>
-<blockquote>
-No gastes mucho tiempo en esta tarea, no necesitas tanto
-detalle. Los modelos y los planos son necesarios en la
-arquitectura y la construcción civil porque es caro construir
-una casa para demostrar que su diseño funciona. El software no
-es así – puedes validar tu idea con sólo codificarla, en igual
-tiempo que el que insume hacer un modelo UML que nada prueba por
-sí mismo.</blockquote>
-<p>Aun más escéptico, Alans Stevens, reconocido ingeniero en software
-[<a class="reference external" href="blog/article/la-academia-las-practicas-agiles-y#nb1">1</a>] y
-conferencista, opina <a class="reference external" href="http://halanstevens.com/uml-sucks-really/">en un
-artículo</a>:</p>
-<blockquote>
-<p>No uso UML y noto que ninguno de mis colegas lo usa. Tengo
-sensaciones mezcladas acerca de su necesidad. Parece
-perfectamente razonable que debamos acordar como industria un
-conjunto de símbolos comunes para representar la programación
-orientada a objetos, pero UML tiene la típica apariencia de
-"diseñado por un comité".</p>
-<p>(...) El aspecto más crítico en un diseño inicial, en mi
-experiencia, es la interfaz entre la UI y el modelo de objetos.
-Lamentablemente UML no aborda este problema y en cambio parece
-obsesionado por las minucias en una parodia de distracción
-académica.</p>
-</blockquote>
-</blockquote></div>
-        <p>
-        
-            <a href="posts/la-academia-las-practicas-agiles-y.html#disqus_thread">Comments</a>
         
         </p></div>
     

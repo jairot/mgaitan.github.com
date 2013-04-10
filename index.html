@@ -43,11 +43,410 @@
             
     
         <div class="postbox">
+        <h1><a href="posts/pip-apurate-por-favor.html">pip, apurate por favor</a>
+        <small>  
+             <span class="timeago" title="2013-04-10 01:17:55">2013-04-10 01:17:55</span>
+        </small></h1>
+        <p><a class="reference external" href="http://pip-installer.org/">pip</a>  es una herramienta esencial
+para el trabajo diario de un programador python: es el manejador
+de paquetes de nuestro entorno de trabajo (¡<a class="reference external" href="http://www.virtualenv.org/en/latest/">virtual</a> por favor!),
+con el que instalamos, actualizamos o eliminamos las dependencias de nuestro proyecto
+(y, recursivamente, las dependencias que estas pudieran tener).</p>
+<p>Conceptualmente es similar a los manejadores de paquetes de sistema como <tt class="docutils literal"><span class="pre">apt-get</span></tt>,
+diferenciándose en que, por defecto, <em>consulta cada vez</em> a una <a class="reference external" href="https://pypi.python.org/pypi/">base de
+datos online</a> si el paquete solicitado existe y de dónde
+puede bajar la última versión o la específica que se haya pedido.</p>
+<p>Responder "qué, cuál y de dónde" es una tarea lenta porque dicha base de datos no es
+más que una página html por cada paquete con links que funcionan como un índice (como
+<a class="reference external" href="https://pypi.python.org/simple/lxml/">este</a>  que pip
+<a class="reference external" href="https://github.com/pypa/pip/blob/f1fb4b4fda127529e24b71a4e03bb0b5df484ef6/pip/index.py#L141">debe parsear</a>
+comparar y elegir la mejor opción para bajar (a veces incluso debe parsear la homepage
+del proyecto en busca de links de descarga, puaj!).</p>
+<p>Por eso (y porque muchas veces la infraestructura se satura) el uso estándar de pip es lento.
+Pero hay algunas maneras de que lo sea menos. Veámoslas.</p>
+<div class="section" id="no-bajes-dos-veces-lo-mismo">
+<h2>No bajes dos veces lo mismo</h2>
+<p>El funcionamiento básico de pip es instalar un paquete con <tt class="docutils literal">pip install &lt;paquete&gt;</tt>: busca, baja e
+instala el paquete. El flag <tt class="docutils literal"><span class="pre">--download_cache=&lt;path&gt;</span></tt> evita repetir el paso del medio,
+cosa tediosa cuando tenemos que instalar frecuentemente (por ejemplo en distintos virtualenvs)
+la misma dependencia o cuando el uso de ancho de banda es limitado.</p>
+<p>Por ejemplo instalamos por primera vez <a class="reference external" href="http://lxml.de/">lxml</a> y vemos cuanto tarda.</p>
+<pre class="code bash literal-block">
+<span class="o">(</span><span class="nb">test</span><span class="o">)</span>tin@traful:~/lab/test<span class="nv">$ </span><span class="nb">time </span>pip install lxml --download-cache<span class="o">=</span>~/.pip_download
+Downloading/unpacking lxml
+  Downloading lxml-3.1.1.tar.gz <span class="o">(</span>3.3MB<span class="o">)</span>: 3.3MB downloaded
+  Storing download in cache at /home/tin/.pip_download_cache/https%3A%2F%2Fpypi.python.org%2Fpackages%2Fsource%2Fl%2Flxml%2Flxml-3.1.1.tar.gz
+  Running setup.py egg_info <span class="k">for </span>package lxml
+    Building lxml version 3.1.1.
+
+    <span class="o">[</span>... compilación<span class="o">]</span>
+
+
+Successfully installed lxml
+Cleaning up...
+
+real    2m58.276s
+user    0m38.822s
+sys 0m0.676s
+<span class="o">(</span><span class="nb">test</span><span class="o">)</span>tin@traful:~/lab/test<span class="err">$</span>
+</pre>
+<p>¡3 minutos! Y eso que estoy en una conexión bastante rápida.</p>
+<div class="tip">
+<p class="first admonition-title">Tip</p>
+<p>Cualquier flag que pip acepta en su linea de comando se puede configurar como una
+<a class="reference external" href="http://www.pip-installer.org/en/latest/configuration.html#environment-variables">variable de entorno</a>. Entonces podemos setear flag por defecto en nuestro <tt class="docutils literal">.bashrc</tt>,
+por ejemplo.. code-block: bash</p>
+<blockquote class="last">
+export PIP_DOWNLOAD_CACHE=~/.pip_download_cache</blockquote>
+</div>
+<p>Pero sigamos: una vez cacheado, las siguientes veces que queramos instalar la misma versión de lxml
+no bajará <strong>el archivo</strong> de nuevo</p>
+<pre class="code bash literal-block">
+<span class="o">(</span>test2<span class="o">)</span>tin@traful:~/lab/test2<span class="nv">$ </span><span class="nb">time </span>pip install lxml --download-cache<span class="o">=</span>~/.pip_download
+
+Downloading/unpacking lxml
+  Using download cache from /home/tin/.pip_download_cache/https%3A%2F%2Fpypi.python.org%2Fpackages%2Fsource%2Fl%2Flxml%2Flxml-3.1.1.tar.gz
+  Running setup.py egg_info <span class="k">for </span>package lxml
+    Building lxml version 3.1.1.
+
+    <span class="o">[</span>... compilación<span class="o">]</span>
+
+Successfully installed lxml
+Cleaning up...
+
+real    2m30.624s
+user    0m38.966s
+sys 0m0.504s
+</pre>
+<p>Mejoró realmente poco. ¿que clase de caché es esta?
+Chusmeemos que hay en el directorio.</p>
+<pre class="code bash literal-block">
+<span class="o">(</span><span class="nb">test</span><span class="o">)</span>tin@traful:~/lab/test<span class="nv">$ </span>ls ~/.pip_download_cache/ | grep lxml
+https%3A%2F%2Fpypi.python.org%2Fpackages%2Fsource%2Fl%2Flxml%2Flxml-3.1.1.tar.gz
+https%3A%2F%2Fpypi.python.org%2Fpackages%2Fsource%2Fl%2Flxml%2Flxml-3.1.1.tar.gz.content-type
+</pre>
+<p>¿Caché de urls? <tt class="docutils literal"><span class="pre">-download-cache</span></tt> no evita todo el laburo de averiguar de dónde bajar,
+sino simplemente no baja si la url resultante ya existe (como nombre de un archivo)
+en este directorio.</p>
+<p>Lo explica simple <a class="reference external" href="https://github.com/pypa/pip/issues/680#issuecomment-8773509">Carl Meyer</a>:</p>
+<blockquote>
+La función <tt class="docutils literal"><span class="pre">--download-cache</span></tt> no apunta a prevenir la búsqueda en la red del archivo
+correcto a bajar: todo lo que hace es guardarlo una vez que lo encontró.
+Si de verdad te interesa instalar tus depedencias desde tu compu (sin salir a la red)
+usá <tt class="docutils literal"><span class="pre">--download</span></tt> primero y luego <tt class="docutils literal"><span class="pre">--find-links</span></tt> (apuntando al path de descarga) con
+<tt class="docutils literal"><span class="pre">--no-index</span></tt>.</blockquote>
+</div>
+<div class="section" id="una-cache-sin-salir-a-la-red">
+<h2>Una caché sin salir a la red</h2>
+<p>Sigamosle la corriente al bueno de <a class="reference external" href="https://twitter.com/carljm">@carljm</a>:</p>
+<pre class="code bash literal-block">
+<span class="o">(</span>test3<span class="o">)</span>tin@traful:~/lab/test3<span class="nv">$ </span><span class="nb">time </span>pip install --download<span class="o">=</span>~/.pip_packages lxml
+Downloading/unpacking lxml
+  Using download cache from /home/mgaitan/.pip_download_cache/https%3A%2F%2Fpypi.python.org%2Fpackages%2Fsource%2Fl%2Flxml%2Flxml-3.1.1.tar.gz
+Saved /home/mgaitan/.pip_packages/lxml-3.1.1.tar.gz
+    <span class="o">[</span>...<span class="o">]</span>
+
+Successfully downloaded lxml
+Cleaning up...
+
+real    2m8.969s
+user    0m1.008s
+sys 0m0.136s
+</pre>
+<p>¡Uff, 2 minutos en copiar un archivo que ya tenía bajado! (evidentemente lo que demora mucho
+es <em>averiguar</em> la versión del archivo a bajar)</p>
+<div class="tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">se puede inspeccionar el berenjenal de redirecciones y parseos que suceden hasta que pip
+da con el paquete lxml a bajar haciendo el comando más verborrágico con
+<tt class="docutils literal">pip install lxml <span class="pre">-vvv</span></tt></p>
+</div>
+<p>En este caso, el caché es directamente el archivo:</p>
+<pre class="code bash literal-block">
+<span class="o">(</span><span class="nb">test</span><span class="o">)</span>mgaitan@traful:~/lab/test<span class="nv">$ </span>ls ~/.pip_packages/ | grep lxml
+lxml-3.1.1.tar.gz
+</pre>
+<p>Por suerte, una vez cacheado el paquete de esta manera no tendremos
+que consultar el índice online las siguientes veces.</p>
+<pre class="code bash literal-block">
+<span class="o">(</span>test3<span class="o">)</span>mgaitan@traful:~/lab/test3<span class="nv">$ </span><span class="nb">time </span>pip install --no-index --find-links<span class="o">=</span>~/.pip_packages lxml
+Ignoring indexes: https://pypi.python.org/simple/
+Downloading/unpacking lxml
+  Running setup.py egg_info <span class="k">for </span>package lxml
+    Building lxml version 3.1.1.
+
+    <span class="o">[</span>...<span class="o">]</span>
+
+
+Successfully installed lxml
+Cleaning up...
+
+real    0m38.944s
+user    0m38.338s
+sys 0m0.564s
+</pre>
+<p>Ok, ya va mejor.</p>
+</div>
+<div class="section" id="haciendo-que-la-cosa-vuele-no-recompiles-la-rueda">
+<h2>Haciendo que la cosa vuele: no recompiles la rueda</h2>
+<p>pip 1.4 (en desarrollo) trae <a class="reference external" href="https://github.com/pypa/pip/commit/5d02b5207a305543ad6ef19d6e6596ffa45b99e5">soporte integrado</a> para el nuevo formato de paquetes
+<a class="reference external" href="http://wheel.rtfd.org/,">wheel</a> (superador del viejo <em>egg</em> y basado en los estándares actuales)
+que es muchísimo más rápido que instalar desde fuentes (sobre todo en casos
+que se debe compilar, como lxml)</p>
+<p>Para usar wheel el paquete a bajar tiene que existir en dicho formato y todavía no abundan
+en PyPi asi que podemos armarlos localmente con el propio pip</p>
+<pre class="code bash literal-block">
+pip wheel --wheel-dir<span class="o">=</span>./pip_packages lxml
+</pre>
+<p>Eso es similar a usar <tt class="docutils literal"><span class="pre">--download</span></tt> pero además compila y empaqueta como
+un archivo <tt class="docutils literal">.whl</tt></p>
+<p>Para que pip acepte instalar estos archivos hay que usar <tt class="docutils literal"><span class="pre">--use-wheel</span></tt>
+y para que los busque localmente haremos:</p>
+<pre class="code bash literal-block">
+pip install --use-wheel --no-index --find-links<span class="o">=</span>~/.pip_packages lxml
+</pre>
+<p>¡Lo que tardó menos de 2 decimas de segundo! Un speedup del 90mil veces respecto al primer
+y canónico <tt class="docutils literal">pip install lxml</tt></p>
+<pre class="code literal-block">
+(test)tin@morochita:~/lab/test$ time pip install --use-wheel --no-index --find-links=. lxml
+Ignoring indexes: https://pypi.python.org/simple/
+Downloading/unpacking lxml
+Installing collected packages: lxml
+Successfully installed lxml
+Cleaning up...
+
+real    0m0.180s
+user    0m0.152s
+sys 0m0.024s
+</pre>
+<p>Asi que ya sabés: todos esos paquetes que instalás en cada entorno (quizas ipython,
+django, whatever) me los haces rodar para que pip vuele.</p>
+</div>
+        <p>
+        
+            <a href="posts/pip-apurate-por-favor.html#disqus_thread">Comments</a>
+        
+        </p></div>
+    
+        <div class="postbox">
+        <h1><a href="posts/desambiguando-un-hash-en-git.html">Desambiguando un hash en Git</a>
+        <small>  
+             <span class="timeago" title="2013-03-14 18:02:01">2013-03-14 18:02:01</span>
+        </small></h1>
+        <p>Soy vago. Por eso me llevo bien con Git, que permite reconocer un changeset con un <a class="reference external" href="http://git-scm.com/book/ch6-1.html">pedacito de
+su hash sha1</a> :</p>
+<blockquote>
+Git is smart enough to figure out what commit you meant to type if you provide the first few characters, as long as your partial SHA-1 is at least four characters long and unambiguous — that is, only one object in the current repository begins with that partial SHA-1.</blockquote>
+<p>Pero a veces soy demasiado vago, y Git deja de llevarse bien conmigo: Estaba en una rama con varios commits y quería volver al pasado, deshaciendo commits, pero llevando uno. Fácil: <tt class="docutils literal">reset</tt> + <tt class="docutils literal"><span class="pre">cherry-pick</span></tt>. Pero copié muy pocos caracteres del hash que quería <em>cherrypickear</em>:</p>
+<pre class="code bash literal-block">
+<span class="o">(</span>cpi<span class="o">)</span>tin@morochita:~/cpi<span class="nv">$ </span>git reset --hard 772dad9a775
+HEAD is now at 772dad9 making aqueous migration script more robust
+<span class="o">(</span>cpi<span class="o">)</span>tin@morochita:~/cpi<span class="nv">$ </span>git cherry-pick c4396
+error: short SHA1 c4396 is ambiguous.
+error: short SHA1 c4396 is ambiguous
+fatal: ambiguous argument <span class="s1">'c4396'</span>: unknown revision or path not in the working tree.
+Use <span class="s1">'--'</span> to separate paths from revisions
+<span class="o">(</span>cpi<span class="o">)</span>mgaitan@gutemberg:~/laburo/cpi/code/cpi_mrp<span class="err">$</span>
+</pre>
+<p>Recórcholis.</p>
+<p>Un poquito de bash y <em>git plumbing</em> al rescate:</p>
+<pre class="code bash literal-block">
+<span class="o">(</span>cpi<span class="o">)</span>tin@morochita:~/cpi<span class="nv">$ </span><span class="k">for </span><span class="nb">hash </span>in c4396<span class="o">{{</span>0..9<span class="o">}</span>,<span class="o">{</span>a..f<span class="o">}}</span>; <span class="k">do </span>git cat-file -e <span class="nv">$hash</span> <span class="o">&amp;&amp;</span> git rev-parse <span class="nv">$hash</span>; <span class="k">done </span>2&gt;/dev/nul
+c4396586273b2a9ea5eae46c4ab2d98e236e7792
+c4396a2d64214a28791e4ba5a4a4017bdd9d14d6
+</pre>
+<p>Ahora tenemos el conjunto de hash con igual prefijo, y podemos revisarlos para ver cual era el que queriamos:</p>
+<pre class="code bash literal-block">
+<span class="o">(</span>cpi<span class="o">)</span>tin@morochita:~/cpi<span class="nv">$ </span>git show c4396586273b2a9ea5eae46c4ab2d98e236e7792
+</pre>
+<p>Y ese era el que quería.</p>
+        <p>
+        
+            <a href="posts/desambiguando-un-hash-en-git.html#disqus_thread">Comments</a>
+        
+        </p></div>
+    
+        <div class="postbox">
+        <h1><a href="posts/como-funciona-cuevana.html">Cómo funciona Cuevana</a>
+        <small>  
+             <span class="timeago" title="2013-03-07 10:17:55">2013-03-07 10:17:55</span>
+        </small></h1>
+        <p>Estimando cuanto trabajo significa actualizar <a class="reference external" href="http://userscripts.org/scripts/show/98017">Cuevana sources</a>
+y/o <a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalib">Cuevanalib</a>
+investigué cómo funciona la nueva versión de cuevana.</p>
+<p>Estas notas son el resultado de lo que fui observando.</p>
+<p>Una vez que se elige un contenido, un iframe apunta a una URL con este forma:</p>
+<blockquote>
+<a class="reference external" href="http://www.cuevana.tv/player/sources?id=4773&amp;tipo=pelicula">http://www.cuevana.tv/player/sources?id=4773&amp;tipo=pelicula</a></blockquote>
+<p>En código javascript inline define las fuentes disponibles para ese contenido</p>
+<pre class="code javascript literal-block">
+<span class="kd">var</span> <span class="nx">plugin_ver</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">plugin_rev</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">actual_ver</span><span class="p">,</span> <span class="nx">actual_rev</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">sources</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"2"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"360"</span><span class="o">:</span> <span class="p">[</span><span class="s2">"uptobox"</span><span class="p">,</span> <span class="s2">"uploadcore"</span><span class="p">,</span> <span class="s2">"vidbull"</span><span class="p">,</span> <span class="s2">"bayfiles"</span><span class="p">,</span> <span class="s2">"filebox"</span><span class="p">,</span> <span class="s2">"cramit"</span><span class="p">,</span> <span class="s2">"zalaa"</span><span class="p">],</span>
+        <span class="s2">"720"</span><span class="o">:</span> <span class="p">[</span><span class="s2">"uploadcore"</span><span class="p">,</span> <span class="s2">"vidbull"</span><span class="p">,</span> <span class="s2">"bayfiles"</span><span class="p">,</span> <span class="s2">"cramit"</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">},</span> <span class="nx">sel_source</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre>
+<p>La primer clave (en este caso <tt class="docutils literal">2</tt>, inglés) es el idioma del audio,
+y la segunda la calidad del video</p>
+<p>Luego define diferentes constates:</p>
+<pre class="code javascript literal-block">
+<span class="kd">var</span> <span class="nx">label</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'360'</span><span class="o">:</span> <span class="s1">'SD (360p)'</span><span class="p">,</span>
+    <span class="s1">'480'</span><span class="o">:</span> <span class="s1">'SD (480p)'</span><span class="p">,</span>
+    <span class="s1">'720'</span><span class="o">:</span> <span class="s1">'HD (720p)'</span><span class="p">,</span>
+    <span class="s1">'1080'</span><span class="o">:</span> <span class="s1">'HD (1080p)'</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">labeli</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"1"</span><span class="o">:</span> <span class="s2">"Espa\u00f1ol"</span><span class="p">,</span>
+    <span class="s2">"2"</span><span class="o">:</span> <span class="s2">"Ingl\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"3"</span><span class="o">:</span> <span class="s2">"Portugu\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"4"</span><span class="o">:</span> <span class="s2">"Alem\u00e1n"</span><span class="p">,</span>
+    <span class="s2">"5"</span><span class="o">:</span> <span class="s2">"Franc\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"6"</span><span class="o">:</span> <span class="s2">"Coreano"</span><span class="p">,</span>
+    <span class="s2">"7"</span><span class="o">:</span> <span class="s2">"Italiano"</span><span class="p">,</span>
+    <span class="s2">"8"</span><span class="o">:</span> <span class="s2">"Tailand\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"9"</span><span class="o">:</span> <span class="s2">"Ruso"</span><span class="p">,</span>
+    <span class="s2">"10"</span><span class="o">:</span> <span class="s2">"Mongol"</span><span class="p">,</span>
+    <span class="s2">"11"</span><span class="o">:</span> <span class="s2">"Polaco"</span><span class="p">,</span>
+    <span class="s2">"12"</span><span class="o">:</span> <span class="s2">"Esloveno"</span><span class="p">,</span>
+    <span class="s2">"13"</span><span class="o">:</span> <span class="s2">"Sueco"</span><span class="p">,</span>
+    <span class="s2">"14"</span><span class="o">:</span> <span class="s2">"Griego"</span><span class="p">,</span>
+    <span class="s2">"15"</span><span class="o">:</span> <span class="s2">"Canton\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"16"</span><span class="o">:</span> <span class="s2">"Japon\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"17"</span><span class="o">:</span> <span class="s2">"Dan\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"18"</span><span class="o">:</span> <span class="s2">"Neerland\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"19"</span><span class="o">:</span> <span class="s2">"Hebreo"</span><span class="p">,</span>
+    <span class="s2">"20"</span><span class="o">:</span> <span class="s2">"Serbio"</span><span class="p">,</span>
+    <span class="s2">"21"</span><span class="o">:</span> <span class="s2">"\u00c1rabe"</span><span class="p">,</span>
+    <span class="s2">"22"</span><span class="o">:</span> <span class="s2">"Hindi"</span><span class="p">,</span>
+    <span class="s2">"23"</span><span class="o">:</span> <span class="s2">"Noruego"</span><span class="p">,</span>
+    <span class="s2">"24"</span><span class="o">:</span> <span class="s2">"Turco"</span><span class="p">,</span>
+    <span class="s2">"26"</span><span class="o">:</span> <span class="s2">"Mandar\u00edn"</span><span class="p">,</span>
+    <span class="s2">"27"</span><span class="o">:</span> <span class="s2">"Nepal\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"28"</span><span class="o">:</span> <span class="s2">"Rumano"</span><span class="p">,</span>
+    <span class="s2">"29"</span><span class="o">:</span> <span class="s2">"Iran\u00ed"</span><span class="p">,</span>
+    <span class="s2">"30"</span><span class="o">:</span> <span class="s2">"Est\u00f3n"</span><span class="p">,</span>
+    <span class="s2">"31"</span><span class="o">:</span> <span class="s2">"Bosnio"</span><span class="p">,</span>
+    <span class="s2">"32"</span><span class="o">:</span> <span class="s2">"Checo"</span><span class="p">,</span>
+    <span class="s2">"33"</span><span class="o">:</span> <span class="s2">"Croata"</span><span class="p">,</span>
+    <span class="s2">"34"</span><span class="o">:</span> <span class="s2">"Fin\u00e9s"</span><span class="p">,</span>
+    <span class="s2">"35"</span><span class="o">:</span> <span class="s2">"H\u00fanagro"</span><span class="p">,</span>
+    <span class="s2">"36"</span><span class="o">:</span> <span class="s2">"Persa"</span><span class="p">,</span>
+    <span class="s2">"38"</span><span class="o">:</span> <span class="s2">"Indonesio"</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">labelh</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'filebox'</span><span class="o">:</span> <span class="s1">'Filebox'</span><span class="p">,</span>
+    <span class="s1">'uptobox'</span><span class="o">:</span> <span class="s1">'Uptobox (NUEVO)'</span><span class="p">,</span>
+    <span class="s1">'uploadcore'</span><span class="o">:</span> <span class="s1">'Uploadcore (NUEVO)'</span><span class="p">,</span>
+    <span class="s1">'vidbull'</span><span class="o">:</span> <span class="s1">'Vidbull (NUEVO)'</span><span class="p">,</span>
+    <span class="s1">'zalaa'</span><span class="o">:</span> <span class="s1">'Zalaa'</span><span class="p">,</span>
+    <span class="s1">'cramit'</span><span class="o">:</span> <span class="s1">'Cramit'</span><span class="p">,</span>
+    <span class="s1">'180upload'</span><span class="o">:</span> <span class="s1">'180upload'</span><span class="p">,</span>
+    <span class="s1">'bayfiles'</span><span class="o">:</span> <span class="s1">'Bayfiles'</span>
+<span class="p">};</span>
+</pre>
+<p>El usuario selecciona mediante un menú donde se define <tt class="docutils literal">audio</tt>, <tt class="docutils literal">quality</tt> y <tt class="docutils literal">source</tt>
+que se configuran como atributos data del link:</p>
+<pre class="literal-block">
+.. code-block::
+</pre>
+<blockquote>
+&lt;a class="sel" data-type="quality" data-id="360"&gt;SD (360p)&lt;/a&gt;</blockquote>
+<p>Donde <tt class="docutils literal"><span class="pre">data-type</span></tt> es el tipo de variable, <tt class="docutils literal"><span class="pre">data-id</span></tt> el valor para esa opción
+y <tt class="docutils literal"><span class="pre">class="sel"</span></tt> determina si esa es la opción seleccionada.</p>
+<p>Cuando se hace click en el botón Play se invoca la URL:</p>
+<pre class="literal-block">
+http://www.cuevana.tv/player/source_get?def=**quality**&amp;audio=**audio**&amp;host=**source**&amp;id=4773&amp;tipo=pelicula
+</pre>
+<p>Por ejemplo:</p>
+<pre class="literal-block">
+http://www.cuevana.tv/player/source_get?def=360&amp;audio=2&amp;host=bayfiles&amp;id=4773&amp;tipo=pelicula
+</pre>
+<p>Esta página presenta el captcha, que una vez superado redirige a la URL:</p>
+<pre class="literal-block">
+http://go.cuevana.tv/?*URL_DESTINO*
+</pre>
+<p>Por ejemplo:</p>
+<pre class="literal-block">
+http://go.cuevana.tv/?http%3A%2F%2Fbayfiles.com%2Ffile%2FvIsf%2FkTvfNj%2Fthe.apparition.2012.bdrip.xvid-sparks.mp4%3Fcid%3D4773%26ctipo%3Dpelicula%26cdef%3D360
+</pre>
+<p>Que a su vez redirige a <em>URL_DESTINO</em> que es la URL del servicio donde el video está hosteado
+con parámetros extra: <tt class="docutils literal"><span class="pre">?cid=4773&amp;ctipo=pelicula&amp;cdef=360</span></tt>. En el ejemplo anterior:</p>
+<blockquote>
+<a class="reference external" href="http://bayfiles.com/file/vIsf/kTvfNj/the.apparition.2012.bdrip.xvid-sparks.mp4**?cid=4773&amp;ctipo=pelicula&amp;cdef=360**">http://bayfiles.com/file/vIsf/kTvfNj/the.apparition.2012.bdrip.xvid-sparks.mp4**?cid=4773&amp;ctipo=pelicula&amp;cdef=360**</a></blockquote>
+<p>Aquí entra en juego el "plugin de cuevana". Se puede bajar por ejemplo
+la versión para Firefox desde <a class="reference external" href="http://www.cuevana.tv/player/plugins/cstream-5.0.xpi">http://www.cuevana.tv/player/plugins/cstream-5.0.xpi</a>
+Descomprimirlo con unzip y abrir el archivo <tt class="docutils literal">content/cuevanastream.js</tt></p>
+<p>La presencia de los parámetros <tt class="docutils literal"><span class="pre">cid``y</span> ``ctipo</tt> y una url de alguno de los servicios
+que usa Cuevana hace que se inyecte un javascript en la URL del servicio.</p>
+<pre class="code javascript literal-block">
+<span class="kd">var</span> <span class="nx">loc</span> <span class="o">=</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/cid=/i</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/ctipo=/i</span><span class="p">));</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^http:\/\/(www\.)?bayfiles\.com/i</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">loc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">addScript</span><span class="p">(</span><span class="s1">'bayfiles'</span><span class="p">);</span>
+<span class="p">}</span>
+
+    <span class="c1">// más servicios
+</span>
+  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^http:\/\/(www\.|beta\.)?cuevana\.(com|co|tv|me)/i</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">);</span>
+    <span class="nx">n</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="s1">'plugin_ok'</span><span class="p">;</span>
+    <span class="nx">n</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'data-version'</span><span class="p">,</span> <span class="s1">'5'</span><span class="p">);</span>
+    <span class="nx">n</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'data-revision'</span><span class="p">,</span> <span class="s1">'0'</span><span class="p">);</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">addScript</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="s1">'text/javascript'</span><span class="p">);</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">'src'</span><span class="p">,</span> <span class="s1">'http://sc.cuevana.tv/player/scripts/5/'</span> <span class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s1">'.js'</span><span class="p">);</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'head'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+<p>En ese caso se inyecta el javascript:</p>
+<pre class="literal-block">
+http://sc.cuevana.tv/player/scripts/5/bayfiles.js
+</pre>
+<p>Que es el encargado de parsear html para obtener la url real de descarga,
+resolver/exponer el captcha si existiera, esperar el tiempo de guarda
+del servicio y redirigir al reproductor de cuevana:</p>
+<pre class="literal-block">
+window.location.href = 'http://www.cuevana.tv/#!/' + tipo + '/' + id + '/play/url:' + encodeURIComponent(a) + '/def:' + vars['cdef'];
+</pre>
+<p>Donde tipo es <tt class="docutils literal">series</tt> o <tt class="docutils literal">peliculas</tt>, <tt class="docutils literal">id</tt> es el identificador del contenido,
+def es <tt class="docutils literal">360</tt> o <tt class="docutils literal">720</tt> y <tt class="docutils literal">a</tt> es la url final del archivo mp4</p>
+<blockquote>
+<a class="reference external" href="http://www.cuevana.tv/#!/">http://www.cuevana.tv/#!/</a>' + tipo + '/' + id + '/play/url:' + encodeURIComponent(a) + '/def:' + vars['cdef'];</blockquote>
+<p>El reproductor carga el subtitulo desde la siguientes URL.</p>
+<p>Para series:</p>
+<blockquote>
+<a class="reference external" href="http://sc.cuevana.tv/files/s/sub/">http://sc.cuevana.tv/files/s/sub/</a><strong>ID**_**LANG</strong>.srt</blockquote>
+<p>Donde <tt class="docutils literal">ID</tt> es el identificador del contenido y <tt class="docutils literal">LANG</tt> es el código
+del idioma en 2 letras mayúsculas (ES, EN, etc.)</p>
+<p>Para contenidos HD se agrega el sufijo <em>_720</em>:</p>
+<pre class="literal-block">
+http://sc.cuevana.tv/files/s/sub/**ID**_**LANG**_720.srt
+</pre>
+<p>Para peliculas es análogo pero un nivel más arriba:</p>
+<pre class="literal-block">
+http://sc.cuevana.tv/files/sub/**ID**_**LANG**.srt
+</pre>
+<p>Y eso es todo lo que necesitamos saber.</p>
+        <p>
+        
+            <a href="posts/como-funciona-cuevana.html#disqus_thread">Comments</a>
+        
+        </p></div>
+    
+        <div class="postbox">
         <h1><a href="posts/metiendose-cosas-en-la-nariz.html">Metiéndose cosas en la nariz</a>
         <small>  
              <span class="timeago" title="2013-02-26 22:17:55">2013-02-26 22:17:55</span>
         </small></h1>
-        <div><p><a class="reference external" href="https://nose.readthedocs.org">nose</a> es un excelente <em>framework</em> para testing en python. Es mucho más
+        <p><a class="reference external" href="https://nose.readthedocs.org">nose</a> es un excelente <em>framework</em> para testing en python. Es mucho más
 que un <em>testrunner</em> inteligente: tiene un conjunto de extensiones y shortcuts
 de aserciones de <tt class="docutils literal">unittest</tt>, soporta fixtures y setups/teardown
 por paquetes, y viene con un montón de plugins incorporados.</p>
@@ -186,7 +585,7 @@ que nos manda al debugger cuando un test falla o da error.</p>
 <p><a class="reference external" href="https://github.com/flavioamieiro/nose-ipdb">nose-ipdb</a> lo imita, pero usando el más pulenta de los debuggers: <a class="reference external" href="https://pypi.python.org/pypi/ipdb">ipdb</a>.</p>
 <p>Suficiente por hoy. Pero ¿me estoy perdiendo alguna cosa interesante
 para meter en mi nariz?</p>
-</div></div>
+</div>
         <p>
         
             <a href="posts/metiendose-cosas-en-la-nariz.html#disqus_thread">Comments</a>
@@ -198,7 +597,7 @@ para meter en mi nariz?</p>
         <small>  
              <span class="timeago" title="2012-11-12 00:34:23">2012-11-12 00:34:23</span>
         </small></h1>
-        <div><p>¿Así que querés comenzar un nuevo proyecto usando Python?
+        <p>¿Así que querés comenzar un nuevo proyecto usando Python?
 ¡Felicitaciones! ¿Querés que tenga la estructura recomendada para
 proyectos modernos? ¿Querés que sea instalable fácilmente? ¿Querés que
 no se te arme lio de dependencias que colisionan con las de otros
@@ -320,7 +719,7 @@ para saber más.</p>
 <img alt="http://python-distribute.org/pip_distribute.png" src="http://python-distribute.org/pip_distribute.png"></div>
 <hr class="docutils"><blockquote>
 Este artículo lo escribí originalmente para el <a class="reference external" href="http://python.org.ar/pyar/Recetario">Recetario de PyAr</a></blockquote>
-</div></div>
+</div>
         <p>
         
             <a href="posts/creando-un-nuevo-proyecto-python.html#disqus_thread">Comments</a>
@@ -332,7 +731,7 @@ Este artículo lo escribí originalmente para el <a class="reference external" h
         <small>  
              <span class="timeago" title="2012-11-10 00:09:24">2012-11-10 00:09:24</span>
         </small></h1>
-        <div><p>Hace un tiempo conté <a class="reference external" href="posts/de-mercurial-a-git-limpieza.html">como migré un repositorio Mercurial a Git</a> .
+        <p>Hace un tiempo conté <a class="reference external" href="posts/de-mercurial-a-git-limpieza.html">como migré un repositorio Mercurial a Git</a> .
 Se trataba de un proyecto hospedado en <a class="reference external" href="http://bitbucket.org">Bitbucket</a> y para cambiar
 de DVCS tuve que crear un proyecto nuevo, que tambien hospedamos
 allí porque somos pobretones y nos da repos privados gratis.
@@ -396,7 +795,7 @@ agrego un comentario avisando que es un <em>issue migrado</em>.</p>
             <span class="k">continue</span>
         <span class="n">gpec3</span><span class="o">.</span><span class="n">add_issue_comment</span><span class="p">(</span><span class="n">new_id</span><span class="p">,</span> <span class="o">**</span><span class="n">c</span><span class="p">)</span>
 </pre>
-<p>¡Disfruten!</p></div>
+<p>¡Disfruten!</p>
         <p>
         
             <a href="posts/migrando-issues-entre-proyectos-de-bitbucket.html#disqus_thread">Comments</a>
@@ -408,7 +807,7 @@ agrego un comentario avisando que es un <em>issue migrado</em>.</p>
         <small>  
              <span class="timeago" title="2012-10-26 02:24:46">2012-10-26 02:24:46</span>
         </small></h1>
-        <div><p>Domingo, ciudad de Guayaquil, todo dispuesto para salir a
+        <p>Domingo, ciudad de Guayaquil, todo dispuesto para salir a
 conocer una ciudad que en las guías de viaje suena intererante y bonita.
 Se me ocurre prender la compu para ver si ese email que mandé la noche
 anterior, recién llegado después de 14 horas de viaje
@@ -479,12 +878,10 @@ antes de que esté poniendo los primeros comandos</p>
 
 Superblock backups stored on blocks:
 32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208
-
 </pre>
 <p>Me la juego con el primer backup:</p>
 <pre class="code bash literal-block">
 sudo e2fsck -b 32768 /dev/sda3
-
 </pre>
 <p>Cientos de  <tt class="docutils literal">Y</tt> <tt class="docutils literal">Enter</tt> para mensajes estilo <em>"está roto, desea repararlo?"</em>
 (no había una opción "Sí a todo", como si uno fuese capaz de arrepentirse
@@ -502,7 +899,7 @@ que cortarlo a la mitad lo hacen sin dudar.
 Son como doctores de guerra: te dejan vivo, pero sin una pierna y un
 brazo.</blockquote>
 <p>Querido Guayaquil: prometo visitar tu Malecón la próxima,
-<strong>push</strong> por adelantado.</p></div>
+<strong>push</strong> por adelantado.</p>
         <p>
         
             <a href="posts/ext4-superblock-failure-y-la-cola-del-diablo.html#disqus_thread">Comments</a>
@@ -514,7 +911,7 @@ brazo.</blockquote>
         <small>  
              <span class="timeago" title="2012-10-14 19:23:44">2012-10-14 19:23:44</span>
         </small></h1>
-        <div><p>Hace unos días abría este espacio prometiendo migrar contenidos y
+        <p>Hace unos días abría este espacio prometiendo migrar contenidos y
 tratar de que se vea un poco más bonito.</p>
 <p>Este post incluye algunas notas sobre lo que he hecho hasta el momento.</p>
 <div class="section" id="github-nikola">
@@ -525,7 +922,7 @@ el servicio de hosting gratuito de contenido estático que ofrece Github.</p>
 el contenido del branch <em>gh-page</em> del proyecto en cuestión,
 para usar gh-pages por usuario hay que crear
 un repo llamado <em>&lt;username&gt;</em>.github.com (donde <em>&lt;username&gt;</em> es el tuyo)
-y lo que sirve en <a class="reference external" href=".">http:/</a>/&lt;username&gt;.github.com es directamente el branch
+y lo que sirve en <a class="reference external" href="http:/">http:/</a>/&lt;username&gt;.github.com es directamente el branch
 <em>master</em> (<a class="reference external" href="https://help.github.com/articles/user-organization-and-project-pages">referencia</a>)</p>
 <p>Por este motivo creé otro branch (que sin mucha imaginación denominé
 <a class="reference external" href="https://github.com/mgaitan/mgaitan.github.com/tree/writing">writing</a> )
@@ -597,7 +994,7 @@ RewriteRule ^blog[/]?$ http://mgaitan.github.com/ [R=301]
 RewriteRule ^blog/article/(.*)$ http://mgaitan.github.com/posts/$1.html [R=301]
 </pre>
 <p>¿Cómo se va viendo?</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none"><colgroup><col class="label"><col></colgroup><tbody valign="top"><tr><td class="label"><a class="fn-backref" href="posts/notas-rapidas-de-una-mudanza.html#id1">[1]</a></td><td><a class="reference external" href="https://bitbucket.org/sjl/stevelosh/src/6432040d5154/LICENSE?at=default">https://bitbucket.org/sjl/stevelosh/src/6432040d5154/LICENSE?at=default</a></td></tr></tbody></table><table class="docutils footnote" frame="void" id="id4" rules="none"><colgroup><col class="label"><col></colgroup><tbody valign="top"><tr><td class="label"><a class="fn-backref" href="posts/notas-rapidas-de-una-mudanza.html#id2">[2]</a></td><td><a class="reference external" href="https://github.com/mitsuhiko/flask-sphinx-themes/blob/master/LICENSE">https://github.com/mitsuhiko/flask-sphinx-themes/blob/master/LICENSE</a></td></tr></tbody></table></div></div>
+<table class="docutils footnote" frame="void" id="id3" rules="none"><colgroup><col class="label"><col></colgroup><tbody valign="top"><tr><td class="label"><a class="fn-backref" href="posts/notas-rapidas-de-una-mudanza.html#id1">[1]</a></td><td><a class="reference external" href="https://bitbucket.org/sjl/stevelosh/src/6432040d5154/LICENSE?at=default">https://bitbucket.org/sjl/stevelosh/src/6432040d5154/LICENSE?at=default</a></td></tr></tbody></table><table class="docutils footnote" frame="void" id="id4" rules="none"><colgroup><col class="label"><col></colgroup><tbody valign="top"><tr><td class="label"><a class="fn-backref" href="posts/notas-rapidas-de-una-mudanza.html#id2">[2]</a></td><td><a class="reference external" href="https://github.com/mitsuhiko/flask-sphinx-themes/blob/master/LICENSE">https://github.com/mitsuhiko/flask-sphinx-themes/blob/master/LICENSE</a></td></tr></tbody></table></div>
         <p>
         
             <a href="posts/notas-rapidas-de-una-mudanza.html#disqus_thread">Comments</a>
@@ -609,13 +1006,13 @@ RewriteRule ^blog/article/(.*)$ http://mgaitan.github.com/posts/$1.html [R=301]
         <small>  
              <span class="timeago" title="2012-10-11 01:15:00">2012-10-11 01:15:00</span>
         </small></h1>
-        <div><p>Hola!</p>
+        <p>Hola!</p>
 <p>Este blog está en pleno proceso de mudanza y metamorfosis. Antes estaba
 en <a class="reference external" href="http://nqnwebs.com/blog">http://nqnwebs.com/blog</a> y utilizaba <a class="reference external" href="http://www.spip.net">SPIP</a>. Por diversas razones
 que explicaré más adelante, estoy migrandolo a <a class="reference external" href="http://nikola.ralsina.com.ar">Nikola</a> utilizando
 <a class="reference external" href="http://github.com">Github</a> como plataforma de versionado y hosting.</p>
 <p>Espero que pronto esto esté más bonito y con contenido. También que la
-mudanza y el cambio de herramienta (y paradigma) me ayude a escribir más.</p></div>
+mudanza y el cambio de herramienta (y paradigma) me ayude a escribir más.</p>
         <p>
         
             <a href="posts/bienvenidos-al-tren.html#disqus_thread">Comments</a>
@@ -627,7 +1024,7 @@ mudanza y el cambio de herramienta (y paradigma) me ayude a escribir más.</p></
         <small>  
              <span class="timeago" title="2012-07-02 17:39:11">2012-07-02 17:39:11</span>
         </small></h1>
-        <div><p>Cuando decidí dar el salto desde Subversion a un DVCS estuve leyendo
+        <p>Cuando decidí dar el salto desde Subversion a un DVCS estuve leyendo
 muchos posts comparativos entre las dos opciones más relevantes, Git y
 Mercurial. Había que elegir entre <a class="reference external" href="http://importantshock.wordpress.com/2008/08/07/git-vs-mercurial/">Mc Gyver o James
 Bond</a>
@@ -738,216 +1135,10 @@ exaclty one head each..."</em>.</p>
 original que sin perder la historia útil.</p>
 <p>Parafraseando a Lito, <em>si la historia la escriben los que ganan</em> ...
 ¿ganamos ?</p>
-<iframe width="425" height="344" src="http://www.youtube.com/embed/3mkhn6oiqCM?rel=0&amp;hd=1&amp;wmode=transparent">
-</iframe>
-</div></div>
+<iframe width="425" height="344" src="http://www.youtube.com/embed/3mkhn6oiqCM?rel=0&amp;hd=1&amp;wmode=transparent"></iframe></div>
         <p>
         
             <a href="posts/de-mercurial-a-git-limpieza.html#disqus_thread">Comments</a>
-        
-        </p></div>
-    
-        <div class="postbox">
-        <h1><a href="posts/como-volver-a-compartir-desde.html">Cómo volver a compartir desde Google Reader</a>
-        <small>  
-             <span class="timeago" title="2012-01-11 21:37:21">2012-01-11 21:37:21</span>
-        </small></h1>
-        <div><div class="important">
-<p class="first admonition-title">Important</p>
-<p class="last">El pipe tiene un problema con las fechas y quedó deactualizado
-cuando cambió en el html de G+. En su defecto hice este pequeño
-<a class="reference external" href="https://gist.github.com/2886591">scrapper</a> que es lo que uso
-en <a class="reference external" href="http://www.textospretextos.com.ar">Textos y Pretextos</a></p>
-</div>
-<p>Desde hace muchísimo tengo en <a class="reference external" href="http://www.textospretextos.com.ar">mi otro
-blog</a> una sección que se llama <em>"De
-por ahí, cosas que me parecieron interesantes"</em>. Es un feed de links a
-contenidos de toda índole (política, literatura, cine, fotografía,
-deportes, programación: intereses anchos) con un brevisimo extracto como
-descripción que fui alimentando de diversas formas a lo largo del
-tiempo: usé
-<a class="reference external" href="http://delicious.com/nqnwebs,%20use%20%20%5Besto%20%20-%3Ehttp://sourceforge.net/projects/linkwalla/">delicious</a>,
-usé mi
-<a class="reference external" href="http://twitter.com/nqnwebs).%20Pero%20cuando%20%5BGoogle%20Reader-%3Ehttp://reader.google.com">twitter</a>
-incorporó la opción de "Compartir" se convirtió en la manera por
-defecto: si algo me gustaba, un click en compartir y listo. Eso permitia
-que otros usuarios de Reader que me "seguian" pudieran ver mis posts
-compartidos pero a la vez generaba un feed rss que alimentaba la sección
-de mi blog.</p>
-<p>Con la aparición de Google+ aquella simple y muy usada funcionalidad se
-vió desplazada por el botón "+1" y por un "compartir" engañoso que sólo
-permite compartir en Google+</p>
-<p>Para colmo, cuando uno hace "+1" en algun contenido (dentro de Google
-Reader o en cualquier lado donde esté el botón) se lista en una <a class="reference external" href="https://plus.google.com/102449284377784435533/plusones/p/pub">página
-publica</a>
-pero que <strong>no tiene feed RSS</strong>! . Larry Page,
-(<a class="reference external" href="https://twitter.com/#!/nqnwebs/status/154772127139102720">doblemente</a>)
-te odio.</p>
-<div class="section" id="frustracion-colectiva">
-<h2>Frustración colectiva</h2>
-<p>La bronca por los cambios en Reader no es sólo mia, sino que generó una
-<a class="reference external" href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dE16SFVla3JFZ1lwTkxGRWN2SkZtb2c6MA#gid=0">petición</a>
-firmada por más de
-<a class="reference external" href="http://www.bdkeller.com/2011/10/save-google-reader/">13000</a> usuarios
-que manifiestan que "algunos ven estos cambios como un intento errado
-para forzarnos a usar Google Plus, pero nosotros amamos la utilidad,
-simplicidad y funcionalidades sociales limitadas que ofrece Google
-Reader".</p>
-<p>Mientras tanto, muchos
-(<a class="reference external" href="http://www.theatlanticwire.com/technology/2011/10/how-survive-switch-google-reader-google/44069/">1</a>,
-<a class="reference external" href="https://github.com/jtwebman/GooglePlusToRSSFeed">2</a>,
-<a class="reference external" href="http://plus-one-feed-generator.appspot.com/">3</a>) intentan parchar el
-atropello.</p>
-</div>
-<div class="section" id="mi-solucion">
-<h2>Mi solución</h2>
-<p>"¿Así que no me dejás compartir donde yo quiera, el algoritmo de tu
-madre!?" vociferé, y no sin premeditación agarré <a class="reference external" href="posts/blog/article/yahoo-pipes-como-por-un-tubo">Yahoo!
-Pipes</a> (una genialidad, hay
-que decirlo) para scrappearlos a puro golpe de mouse y sin salir del
-navegador. El resultado fue <a class="reference external" href="http://pipes.yahoo.com/pipes/pipe.info?_id=770fc166fd07a0f6e67fe63f513b05dc">este
-pipe</a>
-del que se puede obtener, por ejemplo, un <a class="reference external" href="http://pipes.yahoo.com/pipes/pipe.run?_id=770fc166fd07a0f6e67fe63f513b05dc&amp;_render=rss&amp;google_plus_id=102449284377784435533">feed RSS 2.0 de mis
-+1s</a>
-. Podés obtener el feed de otros usuarios así:</p>
-<p><tt class="docutils literal"><span class="pre">http://pipes.yahoo.com/pipes/pipe.run?_id=770fc166fd07a0f6e67fe63f513b05dc&amp;_render=rss&amp;google_plus_id=[GOOGLE_PLUS_ID]</span></tt>
-donde <tt class="docutils literal">[GOOGLE_PLUS_ID]</tt> es el numero de identificación del usuario en
-cuestión.</p>
-<div class="figure align-center">
-<img alt="http://nqnwebs.com/local/cache-vignettes/L510xH139/google-plus-user-profile-id-f8dfc.png" src="http://nqnwebs.com/local/cache-vignettes/L510xH139/google-plus-user-profile-id-f8dfc.png"></div>
-</div></div>
-        <p>
-        
-            <a href="posts/como-volver-a-compartir-desde.html#disqus_thread">Comments</a>
-        
-        </p></div>
-    
-        <div class="postbox">
-        <h1><a href="posts/lo-que-hace-un-geek-cuando-ama.html">Lo que hace un geek cuando ama</a>
-        <small>  
-             <span class="timeago" title="2011-11-11 20:43:47">2011-11-11 20:43:47</span>
-        </small></h1>
-        <div><p>Mi computadora de escritorio, la primera que compré trabajando como
-desarrollador de software, es del 2005. La "morocha", una AMD64 con
-placa madre <a class="reference external" href="http://www.asus.com/Motherboards/AMD_Socket_754/K8N">Asus
-K8N</a> que se la
-sigue bancando.</p>
-<img alt="/images/1110133923_20ebd-30987.jpg" class="align-center" src="images/1110133923_20ebd-30987.jpg"><p>Aquel año me enamoré, no por primera vez, pero sí mucho. Aunque resultó
-una <a class="reference external" href="http://www.textosypretextos.com.ar/Hurgando-en-el-Gmail">historia
-complicada</a>,
-es lindo recordar cuanto uno es capaz de amar y ser amado. Y reirse,
-también, de cuán estúpido se puede ser en ese estado.</p>
-<div class="section" id="el-tatuaje-digital">
-<h2>El tatuaje digital</h2>
-<p>Hay <a class="reference external" href="http://www.ascodevida.com/amor/42152">gestos de amor</a> que no
-miden consecuencias y son dificiles de comprender. Yo, por ejemplo,
-decidí "hackear" la BIOS de mi maquina recién comprada y poner una foto
-de aquella mujer amada como pantalla de splash, esa que se muestra apenas
-se enciende la computadora, mucho antes de cargar cualquier sistema
-operativo.</p>
-<p>Si bien por entonces ya usaba linux, para hacer esto usé una aplicación
-oficial de Asus que venía en el Windows instalado, que pronto, a falta
-de espacio en disco y necesidad, desapareció.</p>
-<p>La historia siguió, por supuesto. Aquel amor terminó pero esa imagen
-quedó allí, tatuada. Mientras vivía solo mucho no me importaba, quizas
-porque reiniciaba muy poco la computadora, quizas porque uno naturaliza
-una cicatriz hasta volverse indiferente.</p>
-<p>Cuando un amor nuevo llegó y más tarde la convivencia, encender la
-Morocha cada mañana empezó a hacerse un momento gracioso pero incómodo.
-Para colmo, aun estando dispuesto a reinstalar Windows con este único
-propósito, aquel programita de Asus se me hizo inconseguible .</p>
-<p>Hasta que hoy, seis años despues, me animé a la cirugía.</p>
-</div>
-<div class="section" id="si-no-podes-cambiar-el-tatuaje-cambia-de-piel">
-<h2>Si no podés cambiar el tatuaje, cambiá de piel</h2>
-<p>Encontré un <a class="reference external" href="http://dlcdnet.asus.com/pub/ASUS/mb/sock754/K8N/K8n1011.zip">firmware
-actualizado</a>
-para la BIOS. Aunque no hubiera problemas con la que tenía, actualizarlo
-traería el splash original de Asus.</p>
-<p>El problema, felación habitual a Microsoft de las fabricantes de
-hardware, es que <a class="reference external" href="http://dlcdnet.asus.com/pub/ASUS/mb/flash/AFUDOS211.zip">la utilidad para actualizar
-BIOS</a> es para
-D.O.S.. WTF!</p>
-<p>La
-<a class="reference external" href="http://www.linuxinsight.com/how-to-flash-motherboard-bios-from-linux-no-dos-windows-no-floppy-drive.html">solución</a>
-es usar <a class="reference external" href="http://www.freedos.org/">FreeDOS</a></p>
-<pre class="code bash literal-block">
-<span class="c"># obtener una imagen booteable de freeDOS y montarla en un directorio
-</span>wget http://www.fdos.org/bootdisks/autogen/FDOEM.144.gz
-gunzip FDOEM.144.gz
-mkdir /tmp/floppy
-mount -t vfat -o loop FDOEM.144 /tmp/floppy
-
-<span class="c"># obtener la herramienta para actualizar el bios y la imagen, y moverlos
-</span>wget http://dlcdnet.asus.com/pub/ASUS/mb/flash/AFUDOS211.zip
-unzip AFUDOS211.zip
-mv AFUDOS.exe /tmp/floppy
-wget http://dlcdnet.asus.com/pub/ASUS/mb/sock754/K8N/K8n1011.zip
-unzip K8n1011.zip
-mv 1011.rom /tmp/floppy
-
-<span class="c"># desmontar
-</span>umount /tmp/floppy
-
-<span class="c"># crear una ISO y grabar a un disco virgen
-# (tambien se podría grabar a un pendrive)
-</span>mkisofs -o bootcd.iso -b FDOEM.144 FDOEM.144
-cdrecord -v bootcd.iso
-
-</pre>
-<p>Reinciar, bootear el CD de FreeDOS y ejecutar:</p>
-<pre class="literal-block">
-afudos /i1011.rom
-</pre>
-</div></div>
-        <p>
-        
-            <a href="posts/lo-que-hace-un-geek-cuando-ama.html#disqus_thread">Comments</a>
-        
-        </p></div>
-    
-        <div class="postbox">
-        <h1><a href="posts/cuevanalinks-ahora-para-seres.html">Cuevanalinks, ahora para seres humanos</a>
-        <small>  
-             <span class="timeago" title="2011-08-03 08:51:21">2011-08-03 08:51:21</span>
-        </small></h1>
-        <div><div class="important">
-<p class="first admonition-title">Important</p>
-<p class="last">Cuevanlinks está desmantenido y con los cambios en cuevana.tv ya no
-funciona. No es complicado actualizarlo, pero yo no tengo tiempo.
-¿Querés revivir el proyecto? <a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalinks/fork">Forkealo</a>!</p>
-</div>
-<p>Un colega al que no conozco personalmente, <a class="reference external" href="http://mguillech.blogspot.com/">Martín
-Chikilian</a>, se ofreció a desarrollar
-una interfaz gráfica para
-<a class="reference external" href="posts/blog/article/la-sanguijuela-de-cuevana">Cuevanalinks</a>.</p>
-<p>Luego de algunos dias y teniendo una paciencia descomunal para soportar
-siempre nuevos requerimientos de mi parte, obtuvo una versión de
-Cuevanalinks-GUI, basado en <a class="reference external" href="http://es.wikipedia.org/wiki/PyQt">PyQt</a></p>
-<div class="figure align-center">
-<img alt="http://nqnwebs.com/local/cache-vignettes/L510xH411/2011-08-03-115827_693x558_scrot-0e6d2.png" src="http://nqnwebs.com/local/cache-vignettes/L510xH411/2011-08-03-115827_693x558_scrot-0e6d2.png"></div>
-<p>Todavía está en desarrollo (hay algunos bugcitos y decisiones de diseño
-que no resolvemos del todo) pero ya ofrece ciertas ventajas sobre la
-versión para línea de comandos:</p>
-<ul class="simple"><li>Permite elegir qué se descarga cuando se hace una búsqueda de
-películas</li>
-<li>Te deja armar una cola de descargas de muchas cosas distintas
-haciendo muchas busquedas</li>
-<li>Y, lo más importante, lo puede instalar y usar un ser humano
-normal. :D</li>
-</ul><p>Para Windows, hay un instalador de la versión 0.5dev (el dev denota que
-está en desarrollo, se entiende) que se puede descargar desde acá:</p>
-<div class="important">
-<p class="first admonition-title">Important</p>
-<p><a class="reference external" href="downloads/cuevanalinks-0.5dev-installer.exe">cuevanalinks-0.5dev-installer.exe</a></p>
-<p class="last">para Windows XP o superior</p>
-</div>
-<p>Para los linuxeros, Martín puso <a class="reference external" href="http://mguillech.blogspot.com/2011/08/cuevanalinks-gui-available.html">algunas
-instrucciones</a>
-para hacerlo andar desde los fuentes.</p></div>
-        <p>
-        
-            <a href="posts/cuevanalinks-ahora-para-seres.html#disqus_thread">Comments</a>
         
         </p></div>
     

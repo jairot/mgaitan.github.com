@@ -45,19 +45,29 @@
     <h1><a href="#">Cómo funciona Cuevana</a></h1>
     
     <small>
-     Publicado <span class="timeago" title="2013-02-26 22:17:55">2013-02-26 22:17:55</span>   |  
+     Publicado <span class="timeago" title="2013-03-07 10:17:55">2013-03-07 10:17:55</span>   |  
 
         
 
         <a href="https://github.com/mgaitan/mgaitan.github.com/blob/writing/posts/como-funciona-cuevana.rst">Código</a>
         
+              |  Más posts sobre
+            
+                <a href="../categories/cuevana.html">cuevana</a>
+                , 
+            
+                <a href="../categories/scrapping.html">scrapping</a>
+                
+            
+        
     </small>
-    <div><p>Estimando cuanto trabajo significa actualizar <a class="reference external" href="http://userscripts.org/scripts/show/98017">Cuevana sources</a>
+    <p>Estimando cuanto trabajo significa actualizar <a class="reference external" href="http://userscripts.org/scripts/show/98017">Cuevana sources</a>
 y/o <a class="reference external" href="https://bitbucket.org/tin_nqn/cuevanalib">Cuevanalib</a>
 investigué cómo funciona la nueva versión de cuevana.</p>
 <p>Estas notas son el resultado de lo que fui observando.</p>
-<p>Una vez que se elige un contenido, un iframe apunta a una URL de este formato
-<a class="reference external" href="http://www.cuevana.tv/player/sources?id=4773&amp;tipo=pelicula">http://www.cuevana.tv/player/sources?id=4773&amp;tipo=pelicula</a></p>
+<p>Una vez que se elige un contenido, un iframe apunta a una URL con este forma:</p>
+<blockquote>
+<a class="reference external" href="http://www.cuevana.tv/player/sources?id=4773&amp;tipo=pelicula">http://www.cuevana.tv/player/sources?id=4773&amp;tipo=pelicula</a></blockquote>
 <p>En código javascript inline define las fuentes disponibles para ese contenido</p>
 <pre class="code javascript literal-block">
 <span class="kd">var</span> <span class="nx">plugin_ver</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="nx">plugin_rev</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -130,7 +140,7 @@ y la segunda la calidad del video</p>
 <span class="p">};</span>
 </pre>
 <p>El usuario selecciona mediante un menú donde se define <tt class="docutils literal">audio</tt>, <tt class="docutils literal">quality</tt> y <tt class="docutils literal">source</tt>
-que se ofrencen en links con el formato</p>
+que se configuran como atributos data del link:</p>
 <pre class="literal-block">
 .. code-block::
 </pre>
@@ -138,18 +148,22 @@ que se ofrencen en links con el formato</p>
 &lt;a class="sel" data-type="quality" data-id="360"&gt;SD (360p)&lt;/a&gt;</blockquote>
 <p>Donde <tt class="docutils literal"><span class="pre">data-type</span></tt> es el tipo de variable, <tt class="docutils literal"><span class="pre">data-id</span></tt> el valor para esa opción
 y <tt class="docutils literal"><span class="pre">class="sel"</span></tt> determina si esa es la opción seleccionada.</p>
-<p>Cuando se aprieta el botón Play se invoca la URL:</p>
-<blockquote>
-<a class="reference external" href="http://www.cuevana.tv/player/source_get?def=**quality**&amp;audio=**audio**&amp;host=**source**&amp;id=4773&amp;tipo=pelicula">http://www.cuevana.tv/player/source_get?def=**quality**&amp;audio=**audio**&amp;host=**source**&amp;id=4773&amp;tipo=pelicula</a></blockquote>
+<p>Cuando se hace click en el botón Play se invoca la URL:</p>
+<pre class="literal-block">
+http://www.cuevana.tv/player/source_get?def=**quality**&amp;audio=**audio**&amp;host=**source**&amp;id=4773&amp;tipo=pelicula
+</pre>
 <p>Por ejemplo:</p>
-<blockquote>
-<a class="reference external" href="http://www.cuevana.tv/player/source_get?def=360&amp;audio=2&amp;host=bayfiles&amp;id=4773&amp;tipo=pelicula">http://www.cuevana.tv/player/source_get?def=360&amp;audio=2&amp;host=bayfiles&amp;id=4773&amp;tipo=pelicula</a></blockquote>
+<pre class="literal-block">
+http://www.cuevana.tv/player/source_get?def=360&amp;audio=2&amp;host=bayfiles&amp;id=4773&amp;tipo=pelicula
+</pre>
 <p>Esta página presenta el captcha, que una vez superado redirige a la URL:</p>
-<blockquote>
-<a class="reference external" href="http://go.cuevana.tv/?*URL_DESTINO*">http://go.cuevana.tv/?*URL_DESTINO*</a></blockquote>
+<pre class="literal-block">
+http://go.cuevana.tv/?*URL_DESTINO*
+</pre>
 <p>Por ejemplo:</p>
-<blockquote>
-<a class="reference external" href="http://go.cuevana.tv/?http%3A%2F%2Fbayfiles.com%2Ffile%2FvIsf%2FkTvfNj%2Fthe.apparition.2012.bdrip.xvid-sparks.mp4%3Fcid%3D4773%26ctipo%3Dpelicula%26cdef%3D360">http://go.cuevana.tv/?http%3A%2F%2Fbayfiles.com%2Ffile%2FvIsf%2FkTvfNj%2Fthe.apparition.2012.bdrip.xvid-sparks.mp4%3Fcid%3D4773%26ctipo%3Dpelicula%26cdef%3D360</a></blockquote>
+<pre class="literal-block">
+http://go.cuevana.tv/?http%3A%2F%2Fbayfiles.com%2Ffile%2FvIsf%2FkTvfNj%2Fthe.apparition.2012.bdrip.xvid-sparks.mp4%3Fcid%3D4773%26ctipo%3Dpelicula%26cdef%3D360
+</pre>
 <p>Que a su vez redirige a <em>URL_DESTINO</em> que es la URL del servicio donde el video está hosteado
 con parámetros extra: <tt class="docutils literal"><span class="pre">?cid=4773&amp;ctipo=pelicula&amp;cdef=360</span></tt>. En el ejemplo anterior:</p>
 <blockquote>
@@ -183,8 +197,9 @@ que usa Cuevana hace que se inyecte un javascript en la URL del servicio.</p>
 <span class="p">}</span>
 </pre>
 <p>En ese caso se inyecta el javascript:</p>
-<blockquote>
-<a class="reference external" href="http://sc.cuevana.tv/player/scripts/5/bayfiles.js">http://sc.cuevana.tv/player/scripts/5/bayfiles.js</a></blockquote>
+<pre class="literal-block">
+http://sc.cuevana.tv/player/scripts/5/bayfiles.js
+</pre>
 <p>Que es el encargado de parsear html para obtener la url real de descarga,
 resolver/exponer el captcha si existiera, esperar el tiempo de guarda
 del servicio y redirigir al reproductor de cuevana:</p>
@@ -201,18 +216,25 @@ def es <tt class="docutils literal">360</tt> o <tt class="docutils literal">720<
 <a class="reference external" href="http://sc.cuevana.tv/files/s/sub/">http://sc.cuevana.tv/files/s/sub/</a><strong>ID**_**LANG</strong>.srt</blockquote>
 <p>Donde <tt class="docutils literal">ID</tt> es el identificador del contenido y <tt class="docutils literal">LANG</tt> es el código
 del idioma en 2 letras mayúsculas (ES, EN, etc.)</p>
-<p>Para contenidos HD se agrega el sufijo <em>_720</em></p>
-<blockquote>
-<p><a class="reference external" href="http://sc.cuevana.tv/files/s/sub/">http://sc.cuevana.tv/files/s/sub/</a><a href="como-funciona-cuevana.html#id1"><span class="problematic" id="id2">**</span></a>ID**_**LANG**_720.srt</p>
-<div class="system-message" id="id1">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">&lt;string&gt;</tt>, line 181); <em><a href="como-funciona-cuevana.html#id2">backlink</a></em></p>
-Inline strong start-string without end-string.</div>
-</blockquote>
-<p>Para peliculas es análogo pero un nivel más arriba.</p>
-<blockquote>
-<a class="reference external" href="http://sc.cuevana.tv/files/sub/">http://sc.cuevana.tv/files/sub/</a><strong>ID**_**LANG</strong>.srt</blockquote>
-<p>Y eso es todo lo que necesitamos saber.</p></div>
-    <ul class="pager"></ul><div id="disqus_thread"></div>
+<p>Para contenidos HD se agrega el sufijo <em>_720</em>:</p>
+<pre class="literal-block">
+http://sc.cuevana.tv/files/s/sub/**ID**_**LANG**_720.srt
+</pre>
+<p>Para peliculas es análogo pero un nivel más arriba:</p>
+<pre class="literal-block">
+http://sc.cuevana.tv/files/sub/**ID**_**LANG**.srt
+</pre>
+<p>Y eso es todo lo que necesitamos saber.</p>
+    <ul class="pager"><li class="previous">
+            <a href="metiendose-cosas-en-la-nariz.html">← Post anterior</a>
+        </li>
+    
+    
+        <li class="next">
+            <a href="desambiguando-un-hash-en-git.html">Siguiente post  →</a>
+        </li>
+    
+    </ul><div id="disqus_thread"></div>
         <script type="text/javascript"> var disqus_shortname = 'nqnwebs'; var disqus_url = 'http://mgaitan.github.com/posts/como-funciona-cuevana.html'; (function() { var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })(); </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     

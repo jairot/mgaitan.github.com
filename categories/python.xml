@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>tin_nqn (python)</title><link>http://getnikola.com/</link><description></description><atom:link href="http://getnikola.com/categories/python.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Wed, 13 Nov 2013 14:55:00 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>pip, apurate por favor</title><link>http://getnikola.com/posts/pip-apurate-por-favor.html</link><description>&lt;div&gt;&lt;p&gt;&lt;a class="reference external" href="http://pip-installer.org/"&gt;pip&lt;/a&gt;  es una herramienta esencial
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>tin_nqn (python)</title><link>http://getnikola.com/</link><description></description><atom:link href="http://getnikola.com/categories/python.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Wed, 13 Nov 2013 21:01:07 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>pip, apurate por favor</title><link>http://getnikola.com/posts/pip-apurate-por-favor.html</link><description>&lt;!-- title: pip, apurate por favor --&gt;
+&lt;!-- slug: pip-apurate-por-favor --&gt;
+&lt;!-- date: 2013/04/10 01:17:55 --&gt;
+&lt;!-- tags: pip, python --&gt;
+&lt;!-- description: --&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://pip-installer.org/"&gt;pip&lt;/a&gt;  es una herramienta esencial
 para el trabajo diario de un programador python: es el manejador
 de paquetes de nuestro entorno de trabajo (¡&lt;a class="reference external" href="http://www.virtualenv.org/en/latest/"&gt;virtual&lt;/a&gt; por favor!),
 con el que instalamos, actualizamos o eliminamos las dependencias de nuestro proyecto
@@ -173,7 +178,13 @@ sys 0m0.024s
 &lt;/pre&gt;
 &lt;p&gt;Asi que ya sabés: todos esos paquetes que instalás en cada entorno (quizas ipython,
 django, whatever) me los haces rodar para que pip vuele.&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>pip</category><category>python</category><guid>http://getnikola.com/posts/pip-apurate-por-favor.html</guid><pubDate>Wed, 10 Apr 2013 01:17:55 GMT</pubDate></item><item><title>Creando un nuevo proyecto Python</title><link>http://getnikola.com/posts/creando-un-nuevo-proyecto-python.html</link><description>&lt;div&gt;&lt;p&gt;¿Así que querés comenzar un nuevo proyecto usando Python?
+&lt;/div&gt;</description><category>pip</category><category>python</category><guid>http://getnikola.com/posts/pip-apurate-por-favor.html</guid><pubDate>Wed, 10 Apr 2013 01:17:55 GMT</pubDate></item><item><title>Creando un nuevo proyecto Python</title><link>http://getnikola.com/posts/creando-un-nuevo-proyecto-python.html</link><description>&lt;!-- title: Creando un nuevo proyecto Python --&gt;
+&lt;!-- slug: creando-un-nuevo-proyecto-python --&gt;
+&lt;!-- date: 2012/11/12 00:34:23 --&gt;
+&lt;!-- tags: python, tutorial --&gt;
+&lt;!-- link: --&gt;
+&lt;!-- description: --&gt;
+&lt;p&gt;¿Así que querés comenzar un nuevo proyecto usando Python?
 ¡Felicitaciones! ¿Querés que tenga la estructura recomendada para
 proyectos modernos? ¿Querés que sea instalable fácilmente? ¿Querés que
 no se te arme lio de dependencias que colisionan con las de otros
@@ -295,7 +306,13 @@ para saber más.&lt;/p&gt;
 &lt;img alt="http://python-distribute.org/pip_distribute.png" src="http://python-distribute.org/pip_distribute.png"&gt;&lt;/div&gt;
 &lt;hr class="docutils"&gt;&lt;blockquote&gt;
 Este artículo lo escribí originalmente para el &lt;a class="reference external" href="http://python.org.ar/pyar/Recetario"&gt;Recetario de PyAr&lt;/a&gt;&lt;/blockquote&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>python</category><category>tutorial</category><guid>http://getnikola.com/posts/creando-un-nuevo-proyecto-python.html</guid><pubDate>Mon, 12 Nov 2012 00:34:23 GMT</pubDate></item><item><title>Migrando issues entre proyectos de Bitbucket</title><link>http://getnikola.com/posts/migrando-issues-entre-proyectos-de-bitbucket.html</link><description>&lt;div&gt;&lt;p&gt;Hace un tiempo conté &lt;a class="reference external" href="http://getnikola.com/posts/de-mercurial-a-git-limpieza.html"&gt;como migré un repositorio Mercurial a Git&lt;/a&gt; .
+&lt;/div&gt;</description><category>python</category><category>tutorial</category><guid>http://getnikola.com/posts/creando-un-nuevo-proyecto-python.html</guid><pubDate>Mon, 12 Nov 2012 00:34:23 GMT</pubDate></item><item><title>Migrando issues entre proyectos de Bitbucket</title><link>http://getnikola.com/posts/migrando-issues-entre-proyectos-de-bitbucket.html</link><description>&lt;!-- title: Migrando issues entre proyectos de Bitbucket --&gt;
+&lt;!-- slug: migrando-issues-entre-proyectos-de-bitbucket --&gt;
+&lt;!-- date: 2012/11/10 0:09:24 --&gt;
+&lt;!-- tags: python, migraciones, scripts --&gt;
+&lt;!-- link: --&gt;
+&lt;!-- description: --&gt;
+&lt;p&gt;Hace un tiempo conté &lt;a class="reference external" href="http://getnikola.com/posts/de-mercurial-a-git-limpieza.html"&gt;como migré un repositorio Mercurial a Git&lt;/a&gt; .
 Se trataba de un proyecto hospedado en &lt;a class="reference external" href="http://bitbucket.org"&gt;Bitbucket&lt;/a&gt; y para cambiar
 de DVCS tuve que crear un proyecto nuevo, que tambien hospedamos
 allí porque somos pobretones y nos da repos privados gratis.
@@ -359,13 +376,13 @@ agrego un comentario avisando que es un &lt;em&gt;issue migrado&lt;/em&gt;.&lt;/
             &lt;span class="k"&gt;continue&lt;/span&gt;
         &lt;span class="n"&gt;gpec3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_issue_comment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;new_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;¡Disfruten!&lt;/p&gt;&lt;/div&gt;</description><category>python</category><category>migraciones</category><category>scripts</category><guid>http://getnikola.com/posts/migrando-issues-entre-proyectos-de-bitbucket.html</guid><pubDate>Sat, 10 Nov 2012 00:09:24 GMT</pubDate></item><item><title>Bievenidos al tren</title><link>http://getnikola.com/posts/bienvenidos-al-tren.html</link><description>&lt;div&gt;&lt;p&gt;Hola!&lt;/p&gt;
+&lt;p&gt;¡Disfruten!&lt;/p&gt;</description><category>python</category><category>migraciones</category><category>scripts</category><guid>http://getnikola.com/posts/migrando-issues-entre-proyectos-de-bitbucket.html</guid><pubDate>Sat, 10 Nov 2012 00:09:24 GMT</pubDate></item><item><title>Bievenidos al tren</title><link>http://getnikola.com/posts/bienvenidos-al-tren.html</link><description>&lt;p&gt;Hola!&lt;/p&gt;
 &lt;p&gt;Este blog está en pleno proceso de mudanza y metamorfosis. Antes estaba
 en &lt;a class="reference external" href="http://nqnwebs.com/blog"&gt;http://nqnwebs.com/blog&lt;/a&gt; y utilizaba &lt;a class="reference external" href="http://www.spip.net"&gt;SPIP&lt;/a&gt;. Por diversas razones
 que explicaré más adelante, estoy migrandolo a &lt;a class="reference external" href="http://nikola.ralsina.com.ar"&gt;Nikola&lt;/a&gt; utilizando
 &lt;a class="reference external" href="http://github.com"&gt;Github&lt;/a&gt; como plataforma de versionado y hosting.&lt;/p&gt;
 &lt;p&gt;Espero que pronto esto esté más bonito y con contenido. También que la
-mudanza y el cambio de herramienta (y paradigma) me ayude a escribir más.&lt;/p&gt;&lt;/div&gt;</description><category>nikola</category><category>python</category><category>spip</category><category>blog</category><guid>http://getnikola.com/posts/bienvenidos-al-tren.html</guid><pubDate>Thu, 11 Oct 2012 01:15:00 GMT</pubDate></item><item><title>Cuevanalinks, ahora para seres humanos</title><link>http://getnikola.com/posts/cuevanalinks-ahora-para-seres.html</link><description>&lt;div&gt;&lt;div class="important"&gt;
+mudanza y el cambio de herramienta (y paradigma) me ayude a escribir más.&lt;/p&gt;</description><category>nikola</category><category>python</category><category>spip</category><category>blog</category><guid>http://getnikola.com/posts/bienvenidos-al-tren.html</guid><pubDate>Thu, 11 Oct 2012 01:15:00 GMT</pubDate></item><item><title>Cuevanalinks, ahora para seres humanos</title><link>http://getnikola.com/posts/cuevanalinks-ahora-para-seres.html</link><description>&lt;div class="important"&gt;
 &lt;p class="first admonition-title"&gt;Important&lt;/p&gt;
 &lt;p class="last"&gt;Cuevanlinks está desmantenido y con los cambios en cuevana.tv ya no
 funciona. No es complicado actualizarlo, pero yo no tengo tiempo.
@@ -398,7 +415,7 @@ está en desarrollo, se entiende) que se puede descargar desde acá:&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Para los linuxeros, Martín puso &lt;a class="reference external" href="http://mguillech.blogspot.com/2011/08/cuevanalinks-gui-available.html"&gt;algunas
 instrucciones&lt;/a&gt;
-para hacerlo andar desde los fuentes.&lt;/p&gt;&lt;/div&gt;</description><category>python</category><guid>http://getnikola.com/posts/cuevanalinks-ahora-para-seres.html</guid><pubDate>Wed, 03 Aug 2011 08:51:21 GMT</pubDate></item><item><title>CDPedia 0.7 disponible</title><link>http://getnikola.com/posts/cdpedia-0-7-disponible.html</link><description>&lt;div&gt;&lt;img alt="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg" class="align-left" src="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg"&gt;&lt;p&gt;&lt;a class="reference external" href="http://www.python.org.ar"&gt;Python Argentina&lt;/a&gt; se complace en informar que está
+para hacerlo andar desde los fuentes.&lt;/p&gt;</description><category>python</category><guid>http://getnikola.com/posts/cuevanalinks-ahora-para-seres.html</guid><pubDate>Wed, 03 Aug 2011 08:51:21 GMT</pubDate></item><item><title>CDPedia 0.7 disponible</title><link>http://getnikola.com/posts/cdpedia-0-7-disponible.html</link><description>&lt;img alt="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg" class="align-left" src="http://nqnwebs.com/local/cache-vignettes/L150xH150/CDPediaactiob9e9-2f95e-07976.jpg"&gt;&lt;p&gt;&lt;a class="reference external" href="http://www.python.org.ar"&gt;Python Argentina&lt;/a&gt; se complace en informar que está
 disponible la &lt;a class="reference external" href="http://cdpedia.python.org.ar/"&gt;versión 0.7 de CDPedia&lt;/a&gt;
 , un proyecto de la comunidad para disponer de los contenidos de
 &lt;a class="reference external" href="http://es.wikipedia.org"&gt;Wikipedia en español&lt;/a&gt; sin acceso a internet,
@@ -423,7 +440,7 @@ por este logro de la comunidad. En especial, a
 &lt;a class="reference external" href="http://twitter.com/#!/dmascialino"&gt;Diego&lt;/a&gt;,
 &lt;a class="reference external" href="http://twitter.com/#!/spiccinini"&gt;SAn&lt;/a&gt;,
 &lt;a class="reference external" href="http://www.taniquetil.com.ar/plog/"&gt;Facu&lt;/a&gt; y
-&lt;a class="reference external" href="http://protocultura.net/"&gt;Alecu&lt;/a&gt; que son los principales&lt;/p&gt;&lt;/div&gt;</description><category>python</category><guid>http://getnikola.com/posts/cdpedia-0-7-disponible.html</guid><pubDate>Fri, 01 Jul 2011 11:00:00 GMT</pubDate></item><item><title>Pep 20: El Zen del Barça</title><link>http://getnikola.com/posts/pep-20-el-zen-del-barca.html</link><description>&lt;div&gt;&lt;p&gt;&lt;img alt="image0" src="http://getnikola.com/images/messi_guardib9bf-5b102.jpg"&gt;
+&lt;a class="reference external" href="http://protocultura.net/"&gt;Alecu&lt;/a&gt; que son los principales&lt;/p&gt;</description><category>python</category><guid>http://getnikola.com/posts/cdpedia-0-7-disponible.html</guid><pubDate>Fri, 01 Jul 2011 11:00:00 GMT</pubDate></item><item><title>Pep 20: El Zen del Barça</title><link>http://getnikola.com/posts/pep-20-el-zen-del-barca.html</link><description>&lt;p&gt;&lt;img alt="image0" src="http://getnikola.com/images/messi_guardib9bf-5b102.jpg"&gt;
 El &lt;a class="reference external" href="http://www.python.org/dev/peps/pep-0020/"&gt;Zen de Python&lt;/a&gt; es
 también el Zen del Barça, el de Pep Guardiola. La "Pep" 20
 [&lt;a class="reference external" href="http://getnikola.com/blog/article/pep-20-el-zen-del-barca#nb1"&gt;1&lt;/a&gt;]:&lt;/p&gt;
@@ -450,7 +467,7 @@ Aunque nunca es a menudo mejor que ya mismo.
 Si la implementación es difícil de explicar, es una mala idea.
 Si la implementación es fácil de explicar, puede que sea una buena
 idea.
-Los espacios son una gran idea ¡Hagamos más de esas cosas!&lt;/blockquote&gt;&lt;/div&gt;</description><category>python</category><guid>http://getnikola.com/posts/pep-20-el-zen-del-barca.html</guid><pubDate>Wed, 27 Apr 2011 16:22:47 GMT</pubDate></item><item><title>Compartiendo documentación de paquetes python</title><link>http://getnikola.com/posts/compartiendo-documentacion-de.html</link><description>&lt;div&gt;&lt;p&gt;Sabido es, aunque muchas veces se ignora, que un software sin
+Los espacios son una gran idea ¡Hagamos más de esas cosas!&lt;/blockquote&gt;</description><category>python</category><guid>http://getnikola.com/posts/pep-20-el-zen-del-barca.html</guid><pubDate>Wed, 27 Apr 2011 16:22:47 GMT</pubDate></item><item><title>Compartiendo documentación de paquetes python</title><link>http://getnikola.com/posts/compartiendo-documentacion-de.html</link><description>&lt;p&gt;Sabido es, aunque muchas veces se ignora, que un software sin
 documentación está incompleto
 [&lt;a class="reference external" href="http://getnikola.com/blog/article/compartiendo-documentacion-de#nb1"&gt;1&lt;/a&gt;].&lt;/p&gt;
 &lt;p&gt;Si bien el manifiesto ágil
@@ -608,7 +625,7 @@ github&lt;/a&gt;
 de Luca Sbardella.
 &lt;img alt="image1" src="http://getnikola.com/posts/local/cache-vignettes/L8xH11/puce-32883.gif"&gt;&lt;a class="reference external" href="http://dinoboff.github.com/github-tools/overview.html#documentation-hosting"&gt;Usando
 github-tools&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>Software Libre</category><category>python</category><category>Metodologías ágiles</category><guid>http://getnikola.com/posts/compartiendo-documentacion-de.html</guid><pubDate>Sun, 10 Apr 2011 19:16:38 GMT</pubDate></item><item><title>La sanguijuela de cuevana</title><link>http://getnikola.com/posts/la-sanguijuela-de-cuevana.html</link><description>&lt;div&gt;&lt;blockquote&gt;
+&lt;/div&gt;</description><category>Software Libre</category><category>python</category><category>Metodologías ágiles</category><guid>http://getnikola.com/posts/compartiendo-documentacion-de.html</guid><pubDate>Sun, 10 Apr 2011 19:16:38 GMT</pubDate></item><item><title>La sanguijuela de cuevana</title><link>http://getnikola.com/posts/la-sanguijuela-de-cuevana.html</link><description>&lt;blockquote&gt;
 &lt;strong&gt;UPDATE&lt;/strong&gt; Hay una nueva versión con interfaz gráfica
 &lt;a class="reference external" href="http://getnikola.com/posts/blog/article/cuevanalinks-ahora-para-seres"&gt;acá&lt;/a&gt;&lt;/blockquote&gt;
 &lt;p&gt;Parece que se me hizo hobby &lt;a class="reference external" href="http://getnikola.com/posts/blog/article/yendo-a-las-fuentes-de-cuevana-tv"&gt;chupar links de
@@ -721,7 +738,7 @@ problemas,
 que el funcionamiento del sitio no cambie o yo tenga mucho tiempo y
 ganas de andar parchando detrás. Por eso, si hay más interesados y
 usuarios, seguramente podremos hacerlo durar más.&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>python</category><guid>http://getnikola.com/posts/la-sanguijuela-de-cuevana.html</guid><pubDate>Sat, 09 Apr 2011 14:22:27 GMT</pubDate></item><item><title>Apuntes del PyCamp 2011</title><link>http://getnikola.com/posts/apuntes-del-pycamp-2011.html</link><description>&lt;div&gt;&lt;p&gt;Casi se hizo jueves y todavía no escribí nada sobre el
+&lt;/div&gt;</description><category>python</category><guid>http://getnikola.com/posts/la-sanguijuela-de-cuevana.html</guid><pubDate>Sat, 09 Apr 2011 14:22:27 GMT</pubDate></item><item><title>Apuntes del PyCamp 2011</title><link>http://getnikola.com/posts/apuntes-del-pycamp-2011.html</link><description>&lt;p&gt;Casi se hizo jueves y todavía no escribí nada sobre el
 &lt;a class="reference external" href="http://python.org.ar/pyar/PyCamp/2011"&gt;PyCamp&lt;/a&gt;. &lt;a class="reference external" href="http://lateral.netmanagers.com.ar/"&gt;Roberto
 Alsina&lt;/a&gt; se va a enojar.&lt;/p&gt;
 &lt;p&gt;La excusa, vaga como yo, es que la devolución de uno de mis directores
@@ -824,4 +841,4 @@ por el sobrenombre y no por el título, se admira el conocimiento pero
 más se festeja su colectivización, y eso lo saben (y lo disfrutan) los
 picantes y los tiernitos.&lt;/p&gt;
 &lt;p&gt;Cuanta falta le hace a la universidad visiones y experiencias como esta.&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>Software Libre</category><category>python</category><guid>http://getnikola.com/posts/apuntes-del-pycamp-2011.html</guid><pubDate>Wed, 30 Mar 2011 19:50:40 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><category>Software Libre</category><category>python</category><guid>http://getnikola.com/posts/apuntes-del-pycamp-2011.html</guid><pubDate>Wed, 30 Mar 2011 19:50:40 GMT</pubDate></item></channel></rss>

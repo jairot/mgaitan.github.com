@@ -10,7 +10,7 @@
  </url>
  <url>
   <loc>http://getnikola.com/2005/index.html</loc>
-  <lastmod>2013-06-24</lastmod>
+  <lastmod>2013-11-13</lastmod>
  </url>
  <url>
   <loc>http://getnikola.com/2008/index.html</loc>
@@ -85,35 +85,11 @@
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/categories/descargas.html</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/descargas.xml</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/documentos.html</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/documentos.xml</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
   <loc>http://getnikola.com/categories/e-commerce.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
   <loc>http://getnikola.com/categories/e-commerce.xml</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/emprendedorismo.html</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/emprendedorismo.xml</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
@@ -166,14 +142,6 @@
  </url>
  <url>
   <loc>http://getnikola.com/categories/linux.xml</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/matplotlib.html</loc>
-  <lastmod>2013-11-13</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/categories/matplotlib.xml</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
@@ -286,7 +254,7 @@
  </url>
  <url>
   <loc>http://getnikola.com/categories/testing.html</loc>
-  <lastmod>2013-06-24</lastmod>
+  <lastmod>2013-11-13</lastmod>
  </url>
  <url>
   <loc>http://getnikola.com/categories/tutorial.html</loc>
@@ -337,6 +305,10 @@
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
+  <loc>http://getnikola.com/index-8.html</loc>
+  <lastmod>2013-11-13</lastmod>
+ </url>
+ <url>
   <loc>http://getnikola.com/index.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
@@ -346,18 +318,14 @@
  </url>
  <url>
   <loc>http://getnikola.com/posts/Esqueletos-de-aten-org-ar.html</loc>
-  <lastmod>2013-06-24</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/posts/SPIP-el-Gestor-de-Contenidos.html</loc>
-  <lastmod>2013-06-24</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/posts/apuntes-del-pycamp-2011.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
-  <loc>http://getnikola.com/posts/apuntes-pamejorar-el-chamuio-escrito.html</loc>
+  <loc>http://getnikola.com/posts/SPIP-el-Gestor-de-Contenidos.html</loc>
+  <lastmod>2013-11-13</lastmod>
+ </url>
+ <url>
+  <loc>http://getnikola.com/posts/apuntes-del-pycamp-2011.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
@@ -469,6 +437,10 @@
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
+  <loc>http://getnikola.com/posts/fortran-windows-pesadilla2.html</loc>
+  <lastmod>2013-11-13</lastmod>
+ </url>
+ <url>
   <loc>http://getnikola.com/posts/gpec-2010-el-poster.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
@@ -494,10 +466,6 @@
  </url>
  <url>
   <loc>http://getnikola.com/posts/jQuery-una-introduccion.html</loc>
-  <lastmod>2013-06-24</lastmod>
- </url>
- <url>
-  <loc>http://getnikola.com/posts/jquery-una-introduccion.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
@@ -558,6 +526,14 @@
  </url>
  <url>
   <loc>http://getnikola.com/posts/mostrar-u-ocultar-contenido-facil.html</loc>
+  <lastmod>2013-11-13</lastmod>
+ </url>
+ <url>
+  <loc>http://getnikola.com/posts/no-al-fraude-en-cordoba-ayudanos.html</loc>
+  <lastmod>2013-11-13</lastmod>
+ </url>
+ <url>
+  <loc>http://getnikola.com/posts/no-al-fraude-en-cordoba-nuevo-analisis.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>
@@ -630,6 +606,10 @@
  </url>
  <url>
   <loc>http://getnikola.com/posts/un-gran-lenguaje-una-gran.html</loc>
+  <lastmod>2013-11-13</lastmod>
+ </url>
+ <url>
+  <loc>http://getnikola.com/posts/un-procesador-de-restructuredtext.html</loc>
   <lastmod>2013-11-13</lastmod>
  </url>
  <url>

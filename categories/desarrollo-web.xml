@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>tin_nqn (Desarrollo web)</title><link>http://getnikola.com/</link><description></description><atom:link href="http://getnikola.com/categories/desarrollo-web.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Wed, 13 Nov 2013 14:55:00 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>¡Basta de IE6!</title><link>http://getnikola.com/posts/basta-de-ie6.html</link><description>&lt;div&gt;&lt;p&gt;El trabajo de un desarrollador web cuesta mechones de cabello a la hora
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>tin_nqn (Desarrollo web)</title><link>http://getnikola.com/</link><description></description><atom:link href="http://getnikola.com/categories/desarrollo-web.xml" type="application/rss+xml" rel="self"></atom:link><language>es</language><lastBuildDate>Wed, 13 Nov 2013 21:01:07 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>¡Basta de IE6!</title><link>http://getnikola.com/posts/basta-de-ie6.html</link><description>&lt;p&gt;El trabajo de un desarrollador web cuesta mechones de cabello a la hora
 de enfrentar al inmundo, malnacido e infeliz Internet Explorer 6. Horas
 y nervios perdemos intentando que nuestros sitios se vean decentemente
 en este navegador, que pese a tener casi 8 años de anitgüedad, aun tiene
@@ -48,4 +48,4 @@ odiamos con fundamentos el Internet Explorer 6. Pero justamente
 nosotros, por tener razones, somos responsables de difundirlas tanto
 como podamos para educar tecnológicamente a los usuarios más
 inexperimentados.&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>spip</category><category>Desarrollo web</category><guid>http://getnikola.com/posts/basta-de-ie6.html</guid><pubDate>Sat, 21 Feb 2009 17:23:07 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><category>spip</category><category>Desarrollo web</category><guid>http://getnikola.com/posts/basta-de-ie6.html</guid><pubDate>Sat, 21 Feb 2009 17:23:07 GMT</pubDate></item></channel></rss>
